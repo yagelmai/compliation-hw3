@@ -1,6 +1,6 @@
-#include "global_vals.h"
+#include "Global_symbs.h"
 
-GlobalVals::GlobalVals()
+GlobalSymbs::GlobalSymbs()
 {
     symbolTables = std::list<InnerSymbs>();
     offset = stack<int>();
@@ -8,7 +8,7 @@ GlobalVals::GlobalVals()
     in_while = false;
 }
 
-bool GlobalVals::isExist(string id)
+bool GlobalSymbs::isExist(string id)
 {
     for (InnerSymbs iner_symb : symbolTables)
     {
@@ -23,7 +23,7 @@ bool GlobalVals::isExist(string id)
     return false;
 }
 
-GlobalVals::addSymbol(Node *symbol, string &value)
+GlobalSymbs::addSymbol(Node *symbol, string &value)
 {
     if (isExist(symbol->value))
     {

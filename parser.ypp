@@ -3,6 +3,7 @@
 	#include <stdlib.h>
 	#include <stdio.h>
 	#include "parser.hpp"
+    #include "Global_symbs.hpp"
 	#include "main.hpp"
 	#include "output.hpp"
     #include "hw3_output.hpp"
@@ -10,6 +11,8 @@
 	int yylex();
 	extern int yylineno;
 	void yyerror(const char*);
+
+    using namespace FanC;
 %}
 
 //
@@ -51,7 +54,7 @@
 Prog:               Funcs               										{printProductionRule(1);}
 ;
 
-Funcs:              FuncDecl Funcs    										{printProductionRule(3);}
+Funcs:              FuncDecl Funcs    										    {printProductionRule(3);}
                     | /* epsilon */       										{printProductionRule(2);}
 ;
 
@@ -62,7 +65,7 @@ RetType:            Type                										{printProductionRule(5);}
                     |  VOID             										{printProductionRule(6);}
 ;
 
-Formals:            FormalsList       										{printProductionRule(8);}
+Formals:            FormalsList       										    {printProductionRule(8);}
                     | /* epsilon */       										{printProductionRule(7);}
 ;
 
@@ -123,8 +126,13 @@ Exp:                LPAREN Exp RPAREN           								{printProductionRule(33)
 
 %%
 
-void yyerror(const char*)											{errorSyn(yylineno); exit(1);}
+void yyerror(const char*)											
+{
+    errorSyn(yylineno); exit(1);
+}
 
-int main() 										{
+int main() 										
+{
+    GlobalSymbs glob = new GlobalSymbs(); // this is our DS that contain all the symbols in the code
 	return yyparse();
 }
