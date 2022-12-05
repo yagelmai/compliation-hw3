@@ -9,6 +9,8 @@ namespace FanC
 
 	void reduceOpenScope();
 
+	void addSymbol(Node *symbol, string &value);
+
 }
 
 #endif // MAIN_H
