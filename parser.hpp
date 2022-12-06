@@ -11,12 +11,12 @@ using namespace std;
 
 enum Types
 {
-    UNDEFINED,
-    VOID,
-    BYTE,
-    BOOL,
-    INT, 
-    STRING,
+    TYPE_UNDEFINED,
+    TYPE_VOID,
+    TYPE_BYTE,
+    TYPE_BOOL,
+    TYPE_INT, 
+    TYPE_STRING,
 };
 
 
@@ -30,21 +30,21 @@ public:
     Node(string token_name) : value(token_name) {}
 };
 
-class Relop;
+class Relop: public Node{};
 
-class Id;
+class Id: public Node{};
 
-class BooleanOperation;
+class BooleanOperation: public Node{};
 
-class RelationalOperation;
+class RelationalOperation: public Node{};
 
-class EqualityOperation;
+class EqualityOperation: public Node{};
 
-class Multiplicative;
+class Multiplicative: public Node{};
 
-class Additive;
+class Additive: public Node{};
 
-class Number;
+class Number : public Node{};
 
 class Type : public Node
 {

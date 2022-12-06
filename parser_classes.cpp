@@ -7,5 +7,6 @@ GlobalSymbs *DS = new GlobalSymbs();
 Statement::Statement(Type *t, Node *symbol)
 {
     symbol->type = t->type;
-    DS->addSymbol(symbol, "");
+    string tmp = "";
+    DS->addSymbol(symbol, tmp);
 }

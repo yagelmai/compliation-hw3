@@ -79,7 +79,7 @@ Statements:         Statement           										{;}
 ;
 
 Statement:          LBRACE Statements RBRACE    								{;}
-                    | Type ID SC 											    {$$ = new Statement(DS, $1,$2);}
+                    | Type ID SC 											    {$$ = new Statement($1,$2);}
                     | Type ID ASSIGN Exp SC  									{;}
                     | ID ASSIGN Exp SC  										{;}
                     | Call SC           										{;}
