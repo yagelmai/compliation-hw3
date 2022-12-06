@@ -1,45 +1,13 @@
 #ifndef GLOB_SYMBS
 #define GLOB_SYMBS
 
+
 #include <vector>
 #include <string>
 #include <list>
 #include <stack>
 #include "hw3_output.hpp"
-
-enum Types
-{
-    UNDEFINED,
-    VOID,
-    BYTE,
-    BOOL,
-    INT, 
-    STRING,
-};
-
-class GlobalSymbs
-{
-    public:
-        std::list<InnerSymbs> symbolTables;
-        std::stack<int> offset;
-        static bool in_while;
-};
-
-class InnerSymbs
-{
-    vector<Symbol> symbols;
-
-public:
-    InnerSymbs()
-    {
-        symbols = vector<Symbol>();
-    }
-
-    vector<Symbol> &getEntries()
-    {
-        return this->symbols;
-    }
-};
+#include "parser.hpp"
 
 class Symbol
 {
@@ -61,12 +29,45 @@ public:
     }
 
     string &getName() { return this->name; }
-    vector<Types> &getTypes() { return this->type; }
+    Types &getTypes() { return this->type; }
     int getOffset() { return this->offset; }
     string &getValue() { return this->value; }
     void setValue(string value) { this->value = value; }
 
 };
+
+
+class InnerSymbs
+{
+    vector<Symbol> symbols;
+
+public:
+    InnerSymbs()
+    {
+        symbols = vector<Symbol>();
+    }
+
+    vector<Symbol> &getEntries()
+    {
+        return this->symbols;
+    }
+};
+
+
+class GlobalSymbs
+{
+    public:
+        std::list<InnerSymbs> symbolTables;
+        std::stack<int> offset;
+        static bool in_while;
+
+        
+        GlobalSymbs();
+        ~GlobalSymbs() = default;
+        bool isExist(string id);
+};
+
+GlobalSymbs* DS = new GlobalSymbs();
 
 
 #endif /*GLOB_SYMBS*/

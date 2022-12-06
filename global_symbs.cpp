@@ -1,4 +1,4 @@
-#include "Global_symbs.h"
+#include "global_symbs.hpp"
 
 GlobalSymbs::GlobalSymbs()
 {

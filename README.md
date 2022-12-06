@@ -1,8 +1,8 @@
 this directory should solve hw3 in compliation and create compiler of FanC languge.
 
-# Global_symbs #
+# global_symbs #
 
-we should have one DS that i call him [Global_symbs](Global_symbs.hpp) is should hold all the global symbols. 
+we should have one DS that i call him [global_symbs](global_symbs.hpp) is should hold all the global symbols. 
 in global val we have 3 classes:
 1. GlobalSymbs
 2. InnerSymbs

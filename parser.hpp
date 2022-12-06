@@ -10,11 +10,22 @@ using namespace std;
 
 #define YYSTYPE FanC::Node *
 
+enum Types
+{
+    UNDEFINED,
+    VOID,
+    BYTE,
+    BOOL,
+    INT, 
+    STRING,
+};
+
+
 class Node
 {
 public:
     string value;
-    Var_Type type;
+    Types type;
 
     Node();
     Node(string token_name) : value(token_name) {}
@@ -37,14 +48,25 @@ namespace FanC
 
 	class Number;
 
+class Type : public Node
+{
+    public:
+    explicit Type(Type *t);
+    explicit Type(Types v_type);
+};
+
 class Statement : public Node
 {
     // Tyte ID;
-    explicit Statement(Type *t, Node *symbol)
+    explicit Statement(GlobalSymbs* DS, Type *t, Node *symbol)
 	{
 		symbol->type = t->type;
-		sem->addSymbol(symbol, "");
+		DS->addSymbol(symbol, "");
 	}
+};
+
+
+
 }
 
 #endif //_PARSER_H

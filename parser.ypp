@@ -2,9 +2,8 @@
 	#include <iostream>	
 	#include <stdlib.h>
 	#include <stdio.h>
-	#include "parser.hpp"
-    #include "Global_symbs.hpp"
-	#include "main.hpp"
+	#include "parser.hpp"               // all classes
+    #include "global_symbs.hpp"         // all actions and the DS
 	#include "output.hpp"
     #include "hw3_output.hpp"
     using namespace output;
@@ -81,7 +80,7 @@ Statements:         Statement           										{printProductionRule(12);}
 ;
 
 Statement:          LBRACE Statements RBRACE    								{printProductionRule(14);}
-                    | Type ID SC 											    {$$ = new Statement($1,$2);}
+                    | Type ID SC 											    {$$ = new Statement(DS, $1,$2);}
                     | Type ID ASSIGN Exp SC  									{printProductionRule(16);}
                     | ID ASSIGN Exp SC  										{printProductionRule(17);}
                     | Call SC           										{printProductionRule(18);}
@@ -133,6 +132,6 @@ void yyerror(const char*)
 
 int main() 										
 {
-    GlobalSymbs glob = new GlobalSymbs(); // this is our DS that contain all the symbols in the code
+    GlobalSymbs* DS = new GlobalSymbs(); // this is our DS that contain all the symbols in the code
 	return yyparse();
 }
