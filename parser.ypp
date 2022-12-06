@@ -6,6 +6,7 @@
     #include "hw3_output.hpp"
     using namespace output;
 
+    #define YYSTYPE Node*
 	int yylex();
 	extern int yylineno;
 	void yyerror(const char*);
@@ -79,7 +80,7 @@ Statements:         Statement           										{;}
 ;
 
 Statement:          LBRACE Statements RBRACE    								{;}
-                    | Type ID SC 											    {$$ = new Statement($1,$2);}
+                    | Type ID SC 											    {$$ = new Statement($1,($2)->value);}
                     | Type ID ASSIGN Exp SC  									{;}
                     | ID ASSIGN Exp SC  										{;}
                     | Call SC           										{;}
@@ -99,7 +100,7 @@ ExpList:            Exp                         								{;}
                     | Exp COMMA ExpList         								{;}
 ;
 
-Type:               INT                         								{;}
+Type:               INT                         								{$$ = new Type(TYPE_INT);}
                     | BYTE                      								{;}
                     | BOOL                      								{;}
 ;

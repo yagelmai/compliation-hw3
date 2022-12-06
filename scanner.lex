@@ -5,6 +5,7 @@
 void printundef();
 #include "output.hpp"
 #include "parser.tab.hpp"
+#include "parser.hpp"
 using namespace output;
 %}
 
@@ -20,7 +21,7 @@ r_binop [(\+|\-)]
 %%
 
 void                        return VOID;
-int                         return INT;
+int                         {yylval = new Number(yytext); return INT;}
 byte                        return BYTE;
 b                           return B;
 bool                        return BOOL;

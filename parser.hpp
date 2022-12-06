@@ -7,7 +7,6 @@ extern int yylineno;
 using namespace output;
 using namespace std;
 
-#define YYSTYPE Node *
 
 enum Types
 {
@@ -27,7 +26,7 @@ public:
     Types type;
 
     Node();
-    Node(string token_name) : value(token_name) {}
+    Node(string token_name) : value(token_name) {};
 };
 
 class Relop: public Node{};
@@ -44,18 +43,21 @@ class Multiplicative: public Node{};
 
 class Additive: public Node{};
 
-class Number : public Node{};
+class Number : public Node
+{
+    explicit Number(string value);
+};
 
 class Type : public Node
 {
 public:
-explicit Type(Type *t);
+explicit Type(Node *t);
 explicit Type(Types v_type);
 };
 
 class Statement : public Node
 {
 // Tyte ID;
-explicit Statement(Type *t, Node *symbol);
+explicit Statement(Type *t, string symbol);
 };
 #endif //_PARSER_H

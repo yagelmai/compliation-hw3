@@ -4,9 +4,19 @@
 GlobalSymbs *DS = new GlobalSymbs();
 
 // Tyte ID;
-Statement::Statement(Type *t, Node *symbol)
+Statement::Statement(Type *t, string id_val)
 {
     symbol->type = t->type;
-    string tmp = "";
-    DS->addSymbol(symbol, tmp);
+    symbol->value = id_val;
+    DS->addSymbol(symbol, id_val);
+}
+
+Type::Type(Types v_type){
+    type = v_type;
+}
+
+
+Number::Number(string value) : value(value)
+{
+
 }
