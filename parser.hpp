@@ -1,5 +1,6 @@
 #ifndef _PARSER_H
 #define _PARSER_H
+#define YYSTYPE Node*
 
 #include <vector>
 #include "hw3_output.hpp"
@@ -58,6 +59,6 @@ explicit Type(Types v_type);
 class Statement : public Node
 {
 // Tyte ID;
-explicit Statement(Type *t, string symbol);
+explicit Statement(Type *t, string val);
 };
 #endif //_PARSER_H

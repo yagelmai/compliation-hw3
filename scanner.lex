@@ -3,10 +3,12 @@
 /* Declarations section */
 #include <stdio.h>
 void printundef();
-#include "output.hpp"
+#include "hw3_output.hpp"
 #include "parser.tab.hpp"
 #include "parser.hpp"
 using namespace output;
+#include <iostream>
+#include <stdlib.h>
 %}
 
 %option yylineno
@@ -21,7 +23,7 @@ r_binop [(\+|\-)]
 %%
 
 void                        return VOID;
-int                         {yylval = new Number(yytext); return INT;}
+int                         {yylval = new Node(yytext); return INT;}
 byte                        return BYTE;
 b                           return B;
 bool                        return BOOL;
