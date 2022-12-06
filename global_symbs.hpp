@@ -1,7 +1,6 @@
 #ifndef GLOB_SYMBS
 #define GLOB_SYMBS
 
-
 #include <vector>
 #include <string>
 #include <list>
@@ -65,9 +64,7 @@ class GlobalSymbs
         GlobalSymbs();
         ~GlobalSymbs() = default;
         bool isExist(string id);
+        void addSymbol(Node *symbol, string &value);
 };
-
-GlobalSymbs* DS = new GlobalSymbs();
-
 
 #endif /*GLOB_SYMBS*/

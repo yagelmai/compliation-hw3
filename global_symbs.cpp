@@ -23,13 +23,12 @@ bool GlobalSymbs::isExist(string id)
     return false;
 }
 
-GlobalSymbs::addSymbol(Node *symbol, string &value)
+void GlobalSymbs::addSymbol(Node *symbol, string &value)
 {
     if (isExist(symbol->value))
     {
         errorDef(yylineno, symbol->value);
     }
-
     this->symbolTables.back().getEntries().emplace_back(Symbol(symbol->value, symbol->type, value, this->offset.top(),false));
     this->offset.top()++;
 }

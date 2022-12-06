@@ -3,12 +3,11 @@
 
 #include <vector>
 #include "hw3_output.hpp"
-#include "global_symbs.hpp"
 extern int yylineno;
 using namespace output;
 using namespace std;
 
-#define YYSTYPE FanC::Node *
+#define YYSTYPE Node *
 
 enum Types
 {
@@ -30,43 +29,33 @@ public:
     Node();
     Node(string token_name) : value(token_name) {}
 };
-namespace FanC
-{
-	class Relop;
 
-	class Id;
+class Relop;
 
-	class BooleanOperation;
+class Id;
 
-	class RelationalOperation;
+class BooleanOperation;
 
-	class EqualityOperation;
+class RelationalOperation;
 
-	class Multiplicative;
+class EqualityOperation;
 
-	class Additive;
+class Multiplicative;
 
-	class Number;
+class Additive;
+
+class Number;
 
 class Type : public Node
 {
-    public:
-    explicit Type(Type *t);
-    explicit Type(Types v_type);
+public:
+explicit Type(Type *t);
+explicit Type(Types v_type);
 };
 
 class Statement : public Node
 {
-    // Tyte ID;
-    explicit Statement(GlobalSymbs* DS, Type *t, Node *symbol)
-	{
-		symbol->type = t->type;
-		DS->addSymbol(symbol, "");
-	}
+// Tyte ID;
+explicit Statement(Type *t, Node *symbol);
 };
-
-
-
-}
-
 #endif //_PARSER_H

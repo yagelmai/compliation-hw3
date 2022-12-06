@@ -2,16 +2,15 @@
 	#include <iostream>	
 	#include <stdlib.h>
 	#include <stdio.h>
-	#include "parser.hpp"               // all classes
     #include "global_symbs.hpp"         // all actions and the DS
-	#include "output.hpp"
     #include "hw3_output.hpp"
     using namespace output;
+
 	int yylex();
 	extern int yylineno;
 	void yyerror(const char*);
 
-    using namespace FanC;
+    using namespace std;
 %}
 
 //
@@ -50,76 +49,76 @@
 %%
 
 
-Prog:               Funcs               										{printProductionRule(1);}
+Prog:               Funcs               										{}
 ;
 
-Funcs:              FuncDecl Funcs    										    {printProductionRule(3);}
-                    | /* epsilon */       										{printProductionRule(2);}
+Funcs:              FuncDecl Funcs    										    {}
+                    | /* epsilon */       										{}
 ;
 
-FuncDecl:           RetType ID LPAREN Formals RPAREN LBRACE Statements RBRACE   {printProductionRule(4);}
+FuncDecl:           RetType ID LPAREN Formals RPAREN LBRACE Statements RBRACE   {}
 ;
 
-RetType:            Type                										{printProductionRule(5);}
-                    |  VOID             										{printProductionRule(6);}
+RetType:            Type                										{}
+                    | VOID             										    {}
 ;
 
-Formals:            FormalsList       										    {printProductionRule(8);}
-                    | /* epsilon */       										{printProductionRule(7);}
+Formals:            FormalsList       										    {}
+                    | /* epsilon */       										{}
 ;
 
-FormalsList:        FormalDecl          										{printProductionRule(9);}
-                    | FormalDecl COMMA FormalsList  							{printProductionRule(10);}
+FormalsList:        FormalDecl          										{}
+                    | FormalDecl COMMA FormalsList  							{;}
 ;
 
-FormalDecl:         Type ID         				 							{printProductionRule(11);}
+FormalDecl:         Type ID         				 							{;}
 ;
 
-Statements:         Statement           										{printProductionRule(12);}
-                    | Statements Statement  									{printProductionRule(13);}
+Statements:         Statement           										{;}
+                    | Statements Statement  									{;}
 ;
 
-Statement:          LBRACE Statements RBRACE    								{printProductionRule(14);}
+Statement:          LBRACE Statements RBRACE    								{;}
                     | Type ID SC 											    {$$ = new Statement(DS, $1,$2);}
-                    | Type ID ASSIGN Exp SC  									{printProductionRule(16);}
-                    | ID ASSIGN Exp SC  										{printProductionRule(17);}
-                    | Call SC           										{printProductionRule(18);}
-                    | RETURN SC         										{printProductionRule(19);}
-                    | RETURN Exp SC     										{printProductionRule(20);}
-                    | IF LPAREN Exp RPAREN Statement                            {printProductionRule(21);}
-                    | IF LPAREN Exp RPAREN Statement ELSE Statement             {printProductionRule(22);}
-                    | WHILE LPAREN Exp RPAREN Statement                         {printProductionRule(23);}
-                    | BREAK SC          										{printProductionRule(24);}
-                    | CONTINUE SC       										{printProductionRule(25);}
+                    | Type ID ASSIGN Exp SC  									{;}
+                    | ID ASSIGN Exp SC  										{;}
+                    | Call SC           										{;}
+                    | RETURN SC         										{;}
+                    | RETURN Exp SC     										{;}
+                    | IF LPAREN Exp RPAREN Statement                            {;}
+                    | IF LPAREN Exp RPAREN Statement ELSE Statement             {;}
+                    | WHILE LPAREN Exp RPAREN Statement                         {;}
+                    | BREAK SC          										{;}
+                    | CONTINUE SC       										{;}
 
-Call:               ID LPAREN ExpList RPAREN    								{printProductionRule(26);}
-                    | ID LPAREN RPAREN          								{printProductionRule(27);}
+Call:               ID LPAREN ExpList RPAREN    								{;}
+                    | ID LPAREN RPAREN          								{;}
 ;
 
-ExpList:            Exp                         								{printProductionRule(28);}
-                    | Exp COMMA ExpList         								{printProductionRule(29);}
+ExpList:            Exp                         								{;}
+                    | Exp COMMA ExpList         								{;}
 ;
 
-Type:               INT                         								{printProductionRule(30);}
-                    | BYTE                      								{printProductionRule(31);}
-                    | BOOL                      								{printProductionRule(32);}
+Type:               INT                         								{;}
+                    | BYTE                      								{;}
+                    | BOOL                      								{;}
 ;
 
-Exp:                LPAREN Exp RPAREN           								{printProductionRule(33);} 
-                    | Exp MULTIPLICATIVE Exp           						    {printProductionRule(34);} // (x = 3 if 4>5 else 2) //x=2
-                    | Exp ADDITIVE Exp           								{printProductionRule(34);} // (x = 3 if 4>5 else 2) //x=2
-                    | ID                        								{printProductionRule(35);}
-                    | Call                      								{printProductionRule(36);}
-                    | NUM                       								{printProductionRule(37);}
-                    | NUM B                     								{printProductionRule(38);}
-                    | STRING                    								{printProductionRule(39);}
-                    | TRUE                      								{printProductionRule(40);}
-                    | FALSE                     								{printProductionRule(41);}
-                    | NOT Exp                   								{printProductionRule(42);}
-                    | Exp AND Exp               								{printProductionRule(43);}
-                    | Exp OR Exp                								{printProductionRule(44);}
-                    | Exp RELATIONAL Exp             							{printProductionRule(45);}
-                    | LPAREN Type RPAREN Exp    								{printProductionRule(46);}
+Exp:                LPAREN Exp RPAREN           								{;} 
+                    | Exp MULTIPLICATIVE Exp           						    {;} // (x = 3 if 4>5 else 2) //x=2
+                    | Exp ADDITIVE Exp           								{;} // (x = 3 if 4>5 else 2) //x=2
+                    | ID                        								{;}
+                    | Call                      								{;}
+                    | NUM                       								{;}
+                    | NUM B                     								{;}
+                    | STRING                    								{;}
+                    | TRUE                      								{;}
+                    | FALSE                     								{;}
+                    | NOT Exp                   								{;}
+                    | Exp AND Exp               								{;}
+                    | Exp OR Exp                								{;}
+                    | Exp RELATIONAL Exp             							{;}
+                    | LPAREN Type RPAREN Exp    								{;}
 
 ;
 
@@ -132,6 +131,6 @@ void yyerror(const char*)
 
 int main() 										
 {
-    GlobalSymbs* DS = new GlobalSymbs(); // this is our DS that contain all the symbols in the code
+    GlobalSymbs DS(); // this is our DS that contain all the symbols in the code
 	return yyparse();
 }
