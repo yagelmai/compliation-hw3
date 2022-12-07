@@ -16,7 +16,7 @@ Type::Type(Types v_type){
     type = v_type;
 }
 
-Number::Number(string val) : value(val)
+Number::Number(string val) 
 {
-
+    value = val;
 }

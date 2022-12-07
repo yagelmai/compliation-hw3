@@ -57,6 +57,7 @@ explicit Type(Types v_type);
 class Statement : public Node
 {
 // Tyte ID;
+public:
 explicit Statement(Type *t, string val);
 };
 #endif //_PARSER_H
