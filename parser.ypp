@@ -5,12 +5,11 @@
     #include "global_symbs.hpp"         // all actions and the DS
     #include "hw3_output.hpp"
     using namespace output;
-
-    #define YYSTYPE Node*
+    #include "parser.hpp"
 	int yylex();
 	extern int yylineno;
 	void yyerror(const char*);
-
+    #define YYSTYPE Node*
     using namespace std;
 %}
 

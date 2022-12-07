@@ -6,10 +6,10 @@ GlobalSymbs *DS = new GlobalSymbs();
 // Tyte ID;
 Statement::Statement(Type *t, string id_val)
 {
-    Symbol *symbol = new Symbol()
+    Symbol *symbol = new Symbol();
     symbol->type = t->type;
     symbol->value = id_val;
-    DS->addSymbol(symbol, id_val);
+    //DS->addSymbol(symbol, id_val);
 }
 
 Type::Type(Types v_type){

@@ -10,13 +10,12 @@
 
 class Symbol
 {
+    public:
     string name;
     Types type;
     string value;
     int offset;
     bool isFunc;
-
-public:
     Symbol();
     Symbol(string &name, Types &type, string &value, int offset, bool isFunc)
     {
@@ -32,7 +31,7 @@ public:
     int getOffset() { return this->offset; }
     string &getValue() { return this->value; }
     void setValue(string value) { this->value = value; }
-
+    //void addSymbol
 };
 
 

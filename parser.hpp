@@ -1,7 +1,5 @@
 #ifndef _PARSER_H
 #define _PARSER_H
-#define YYSTYPE Node*
-
 #include <vector>
 #include "hw3_output.hpp"
 extern int yylineno;
