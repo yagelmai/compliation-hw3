@@ -5,7 +5,7 @@ GlobalSymbs::GlobalSymbs()
     symbolTables = std::list<InnerSymbs>();
     offset = stack<int>();
     offset.push(0);
-    in_while = false;
+    in_while = 0;
 }
 
 bool GlobalSymbs::isExist(string id)
@@ -23,7 +23,7 @@ bool GlobalSymbs::isExist(string id)
     return false;
 }
 
-void GlobalSymbs::addSymbol(Node *symbol, string &value)
+void GlobalSymbs::addSymbol(Types type, string &value,string& name)//check if symbol is function, if so add accordingly
 {
     if (isExist(symbol->value))
     {
@@ -32,3 +32,4 @@ void GlobalSymbs::addSymbol(Node *symbol, string &value)
     this->symbolTables.back().getEntries().emplace_back(Symbol(symbol->value, symbol->type, value, this->offset.top(),false));
     this->offset.top()++;
 }
+// add a function for "while" counter

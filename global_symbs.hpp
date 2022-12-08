@@ -15,15 +15,13 @@ class Symbol
     Types type;
     string value;
     int offset;
-    bool isFunc;
-    Symbol();
-    Symbol(string &name, Types &type, string &value, int offset, bool isFunc)
+    Symbol(){}
+    Symbol(GlobalSymbs* D,string &name, Types &type, string &value)
     {
         type = type;
         name = name;
         value = value;
-        isFunc = isFunc;
-        offset = offset;
+        offset = D->getOffset();
     }
 
     string &getName() { return this->name; }
@@ -57,13 +55,16 @@ class GlobalSymbs
     public:
         std::list<InnerSymbs> symbolTables;
         std::stack<int> offset;
-        static bool in_while;
-
-        
+        static int in_while;
         GlobalSymbs();
         ~GlobalSymbs() = default;
         bool isExist(string id);
-        void addSymbol(Node *symbol, string &value);
+        void addSymbol(Types type, string &value, string &name);
+        void enterWhile();//implement
+        void exitWhile();//implement
+        void openScope();//implement
+        void closeScope();//implement
+        int getOffset();//implement
 };
 
 #endif /*GLOB_SYMBS*/

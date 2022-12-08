@@ -2,6 +2,7 @@
 	#include <iostream>	
 	#include <stdlib.h>
 	#include <stdio.h>
+    #define YYSTYPE Node*
     #include "global_symbs.hpp"         // all actions and the DS
     #include "hw3_output.hpp"
     using namespace output;
@@ -9,7 +10,6 @@
 	int yylex();
 	extern int yylineno;
 	void yyerror(const char*);
-    #define YYSTYPE Node*
     using namespace std;
 %}
 
@@ -100,8 +100,8 @@ ExpList:            Exp                         								{;}
 ;
 
 Type:               INT                         								{$$ = new Type(TYPE_INT);}
-                    | BYTE                      								{;}
-                    | BOOL                      								{;}
+                    | BYTE                      								{$$ = new Type(TYPE_BYTE);}
+                    | BOOL                      								{$$ = new Type(TYPE_BOOL);}
 ;
 
 Exp:                LPAREN Exp RPAREN           								{;} 
