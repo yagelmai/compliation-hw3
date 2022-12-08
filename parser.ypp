@@ -131,6 +131,7 @@ void yyerror(const char*)
 
 int main() 										
 {
-    GlobalSymbs DS(); // this is our DS that contain all the symbols in the code
+    GlobalSymbs* DS = new GlobalSymbs(); // this is our DS that contain all the symbols in the code
+    DS->addSymbol(f
 	return yyparse();
 }

@@ -16,7 +16,6 @@ enum Types
     TYPE_BOOL,
     TYPE_INT, 
     TYPE_STRING,
-    TYPE_FUNCTION
 };
 
 

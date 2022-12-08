@@ -15,12 +15,14 @@ class Symbol
     Types type;
     string value;
     int offset;
+    bool is_func;
     Symbol(){}
-    Symbol(GlobalSymbs* D,string &name, Types &type, string &value)
+    Symbol(GlobalSymbs* D,string &name, Types &type, string &value, bool is_func)
     {
         type = type;
         name = name;
         value = value;
+        is_func=is_func;
         offset = D->getOffset();
     }
 
@@ -49,12 +51,25 @@ public:
     }
 };
 
+class Function
+{
+    vector<Symbol> symbols;
+    public:
+    string name;
+    Types return_type;
+    Function(string name,Types return_type):name(name),return_type(return_type){}
+    void add_symbol(Symbol sym)
+    {
+        symbols.emplace_back(sym);//do we have to check if same name appears twice in formals?
+    }
+}
 
 class GlobalSymbs
 {
     public:
         std::list<InnerSymbs> symbolTables;
         std::stack<int> offset;
+        std::list<Function> all_functions;
         static int in_while;
         GlobalSymbs();
         ~GlobalSymbs() = default;
