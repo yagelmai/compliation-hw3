@@ -79,24 +79,28 @@ Statements:         Statement           										{;}
 ;
 
 Statement:          LBRACE Statements RBRACE    								{;}
-                    | Type ID SC 											    {$$ = new Statement($1,($2)->value);}
-                    | Type ID ASSIGN Exp SC  									{;}
-                    | ID ASSIGN Exp SC  										{;}
-                    | Call SC           										{;}
-                    | RETURN SC         										{;}
-                    | RETURN Exp SC     										{;}
-                    | IF LPAREN Exp RPAREN Statement                            {;}
-                    | IF LPAREN Exp RPAREN Statement ELSE Statement             {;}
-                    | WHILE LPAREN Exp RPAREN Statement                         {;}
-                    | BREAK SC          										{;}
-                    | CONTINUE SC       										{;}
+                    | Type ID SC 											    {DS->addSymbol($1->type,$2);delete (Type*)$2;}
+                    | Type ID ASSIGN Exp SC  									{compareTypesAssignment((Type*)$1->type,(Expression*)$4->type);DS->addSymbol($1->type,$2);delete (Type*)$2;}
+                    | ID ASSIGN Exp SC  										{compareTypesAssignment(DS->getVarType($1),(Expression*)$3->type);}
+                    | Call SC           										{delete (Expression*)$1;}
+                    | RETURN SC         										{DS->checkFunctionType(TYPE_VOID);}
+                    | RETURN Exp SC     										{DS->checkFunctionType((Expression*)$2->type);}
+                    | IF LPAREN Exp RPAREN Statement                            {checkIfBool((Expression*($3)->type));delete (Expression*)$3;}
+                    | IF LPAREN Exp RPAREN Statement ELSE Statement             {checkIfBool((Expression*($3)->type));delete (Expression*)$3;}
+                    | WHILE LPAREN Exp RPAREN WhileM Statement                  {checkIfBool((Expression*($3)->type));delete (Expression*)$3;DS->exitWhile();}
+                    | BREAK SC          										{DS->checkInWhile();}
+                    | CONTINUE SC       										{DS->checkInWhile();}
+;
 
-Call:               ID LPAREN ExpList RPAREN    								{checkVariables($1,$3);$$=new Expression(DS->getFunctionType($1));}//check if variables fit called function
+WhileM:             /*epsilon*/                                                 {DS->enterWhile();}
+;
+
+Call:               ID LPAREN ExpList RPAREN    								{checkVariables($1,$3);$$=new Expression(DS->getFunctionType($1));delete (ExpressionList*)$3}//check if variables fit called function
                     | ID LPAREN RPAREN          								{checkVariables($1,nullptr);$$=new Expression(DS->getFunctionType($1));}//check if function doesn't have variables
 ;
 
-ExpList:            Exp                         								{;}
-                    | Exp COMMA ExpList         								{;}
+ExpList:            Exp                         								{$$=new ExpressionList();$$->addExpression($1);}
+                    | Exp COMMA ExpList         								{$3->addExpression($1);}
 ;
 
 Type:               INT                         								{$$ = new Type(TYPE_INT);}
@@ -118,7 +122,7 @@ Exp:                LPAREN Exp RPAREN           								{$$=$2;}
                     | Exp AND Exp               								{$$=$1;delete (Expression*)$3;}
                     | Exp OR Exp                								{$$=$1;delete (Expression*)$3;}
                     | Exp RELATIONAL Exp             							{$$=$1;delete (Expression*)$3}
-                    | LPAREN Type RPAREN Exp    								{compareTypes($2->type,$4->type);$$=new Expression($2->type);delete (Type*)$2;delete (Expression*)$4;}//check if legal 
+                    | LPAREN Type RPAREN Exp    								{compareTypesCast($2->type,$4->type);$$=new Expression($2->type);delete (Type*)$2;delete (Expression*)$4;}//check if legal 
 
 ;
 

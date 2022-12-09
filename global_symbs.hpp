@@ -80,6 +80,7 @@ class GlobalSymbs
         void addFormal();//implemnt
         void clearFormals();//implement
         void currentFunctionType(Types type);//implement
+        void checkInWhile();
         
         int getOffset();//implement
 };
