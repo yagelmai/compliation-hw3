@@ -71,7 +71,7 @@ FormalsList:        FormalDecl          										{}//save variables at negative
                     | FormalDecl COMMA FormalsList  							{}
 ;
 
-FormalDecl:         Type ID         				 							{DS->addFormal();}
+FormalDecl:         Type ID         				 							{DS->addFormal((Type*)$1->type,$2);delete (Type*)$1;}
 ;
 
 Statements:         Statement           										{;}
@@ -122,7 +122,7 @@ Exp:                LPAREN Exp RPAREN           								{$$=$2;}
                     | Exp AND Exp               								{$$=$1;delete (Expression*)$3;}
                     | Exp OR Exp                								{$$=$1;delete (Expression*)$3;}
                     | Exp RELATIONAL Exp             							{$$=$1;delete (Expression*)$3}
-                    | LPAREN Type RPAREN Exp    								{compareTypesCast($2->type,$4->type);$$=new Expression($2->type);delete (Type*)$2;delete (Expression*)$4;}//check if legal 
+                    | LPAREN Type RPAREN Exp    								{DS->compareTypesCast($2->type,$4->type);$$=new Expression($2->type);delete (Type*)$2;delete (Expression*)$4;}//check if legal 
 
 ;
 

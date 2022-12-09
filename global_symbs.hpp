@@ -67,21 +67,22 @@ class GlobalSymbs
         std::stack<int> offset;
         std::list<Function> all_functions;
         static int in_while;
-
+        std::list<
         GlobalSymbs();
         ~GlobalSymbs() = default;
         bool isExist(string id);
         void addSymbol(Types type, string &name);
-        void addFunction();//implement
+        void addFunction(Types type);//implement
         void enterWhile();//implement
         void exitWhile();//implement
         void openScope();//implement
         void closeScope();//implement
-        void addFormal();//implemnt
+        void addFormal(Types type, string name);//implemnt
         void clearFormals();//implement
         void currentFunctionType(Types type);//implement
         void checkInWhile();
-        
+        void addFormal(Types type, string id);
+        void comparesTypesCast(Types first,Types second);
         int getOffset();//implement
 };
 
