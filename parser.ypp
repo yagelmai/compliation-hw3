@@ -85,9 +85,9 @@ Statement:          LBRACE Statements RBRACE    								{;}
                     | Call SC           										{delete (Expression*)$1;}
                     | RETURN SC         										{DS->checkFunctionType(TYPE_VOID);}
                     | RETURN Exp SC     										{DS->checkFunctionType((Expression*)$2->type);}
-                    | IF LPAREN Exp RPAREN Statement                            {checkIfBool((Expression*($3)->type));delete (Expression*)$3;}
-                    | IF LPAREN Exp RPAREN Statement ELSE Statement             {checkIfBool((Expression*($3)->type));delete (Expression*)$3;}
-                    | WHILE LPAREN Exp RPAREN WhileM Statement                  {checkIfBool((Expression*($3)->type));delete (Expression*)$3;DS->exitWhile();}
+                    | IF LPAREN Exp RPAREN Statement                            {checkIfBool((Expression*)$3->type);delete (Expression*)$3;}
+                    | IF LPAREN Exp RPAREN Statement ELSE Statement             {checkIfBool((Expression*)$3->type);delete (Expression*)$3;}
+                    | WHILE LPAREN Exp RPAREN WhileM Statement                  {checkIfBool((Expression*)$3->type);delete (Expression*)$3;DS->exitWhile();}
                     | BREAK SC          										{DS->checkInWhile();}
                     | CONTINUE SC       										{DS->checkInWhile();}
 ;
@@ -123,6 +123,7 @@ Exp:                LPAREN Exp RPAREN           								{$$=$2;}
                     | Exp OR Exp                								{$$=$1;delete (Expression*)$3;}
                     | Exp RELATIONAL Exp             							{$$=$1;delete (Expression*)$3}
                     | LPAREN Type RPAREN Exp    								{DS->compareTypesCast($2->type,$4->type);$$=new Expression($2->type);delete (Type*)$2;delete (Expression*)$4;}//check if legal 
+                    | Exp IF LPAREN Exp RPAREN ELSE Exp                         {$$=$1;checkLegalCast((Expression*)$1->type,(Expression*)$7->type);checkIfBool((Expression*)$4->type);delete (Expression*)$7;(Expression*)$4}
 
 ;
 
