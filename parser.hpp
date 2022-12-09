@@ -28,6 +28,11 @@ public:
     Node(Types type):type(type){};
 };
 
+class Expression: public Node
+{
+public:
+    
+}
 class Relop: public Node{};
 
 class Id: public Node{};

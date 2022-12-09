@@ -56,19 +56,19 @@ Funcs:              FuncDecl Funcs    										    {}
                     | /* epsilon */       										{}
 ;
 
-FuncDecl:           RetType ID LPAREN Formals RPAREN LBRACE Statements RBRACE   {}
+FuncDecl:           RetType ID LPAREN Formals RPAREN LBRACE Statements RBRACE   {DS->addFunction();DS->clearFormals();}//add function to DS, clear formals
 ;
 
 RetType:            Type                										{}
                     | VOID             										    {}
 ;
 
-Formals:            FormalsList       										    {}
+Formals:            FormalsList       										    {}//make sure to save all formals with negative offsets
                     | /* epsilon */       										{}
 ;
 
-FormalsList:        FormalDecl          										{}
-                    | FormalDecl COMMA FormalsList  							{;}
+FormalsList:        FormalDecl          										{DS->addFormal();}//save variables at negative offsets.
+                    | FormalDecl COMMA FormalsList  							{DS->addFormal();}
 ;
 
 FormalDecl:         Type ID         				 							{;}
@@ -110,7 +110,7 @@ Exp:                LPAREN Exp RPAREN           								{;}
                     | ID                        								{;}
                     | Call                      								{;}
                     | NUM                       								{;}
-                    | NUM B                     								{;}
+                    | NUM B                     								{;}//when does it happen?
                     | STRING                    								{;}
                     | TRUE                      								{;}
                     | FALSE                     								{;}
@@ -132,6 +132,6 @@ void yyerror(const char*)
 int main() 										
 {
     GlobalSymbs* DS = new GlobalSymbs(); // this is our DS that contain all the symbols in the code
-    DS->addSymbol(f
+    //add functions print and printi to DS
 	return yyparse();
 }

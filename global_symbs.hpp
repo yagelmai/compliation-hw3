@@ -71,14 +71,18 @@ class GlobalSymbs
         std::stack<int> offset;
         std::list<Function> all_functions;
         static int in_while;
+        
         GlobalSymbs();
         ~GlobalSymbs() = default;
         bool isExist(string id);
         void addSymbol(Types type, string &value, string &name);
+        void addFunction();//implement
         void enterWhile();//implement
         void exitWhile();//implement
         void openScope();//implement
         void closeScope();//implement
+        void addFormal();//implemnt
+        void clearFormals();//implement
         int getOffset();//implement
 };
 
