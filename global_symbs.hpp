@@ -13,15 +13,13 @@ class Symbol
     public:
     string name;
     Types type;
-    string value;
     int offset;
     bool is_func;
     Symbol(){}
-    Symbol(GlobalSymbs* D,string &name, Types &type, string &value, bool is_func)
+    Symbol(GlobalSymbs* D,string &name, Types &type, bool is_func)
     {
         type = type;
         name = name;
-        value = value;
         is_func=is_func;
         offset = D->getOffset();
     }
@@ -29,8 +27,6 @@ class Symbol
     string &getName() { return this->name; }
     Types &getTypes() { return this->type; }
     int getOffset() { return this->offset; }
-    string &getValue() { return this->value; }
-    void setValue(string value) { this->value = value; }
     //void addSymbol
 };
 
@@ -71,11 +67,11 @@ class GlobalSymbs
         std::stack<int> offset;
         std::list<Function> all_functions;
         static int in_while;
-        
+
         GlobalSymbs();
         ~GlobalSymbs() = default;
         bool isExist(string id);
-        void addSymbol(Types type, string &value, string &name);
+        void addSymbol(Types type, string &name);
         void addFunction();//implement
         void enterWhile();//implement
         void exitWhile();//implement
@@ -83,6 +79,8 @@ class GlobalSymbs
         void closeScope();//implement
         void addFormal();//implemnt
         void clearFormals();//implement
+        void currentFunctionType(Types type);//implement
+        
         int getOffset();//implement
 };
 

@@ -12,10 +12,10 @@ enum Types
 {
     TYPE_UNDEFINED,
     TYPE_VOID,
-    TYPE_BYTE,
     TYPE_BOOL,
+    TYPE_BYTE,
     TYPE_INT, 
-    TYPE_STRING,
+    TYPE_STRING
 };
 
 

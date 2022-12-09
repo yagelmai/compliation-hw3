@@ -23,13 +23,13 @@ bool GlobalSymbs::isExist(string id)
     return false;
 }
 
-void GlobalSymbs::addSymbol(Types type, string &value,string& name)//check if symbol is function, if so add accordingly
+void GlobalSymbs::addSymbol(Types type,string& name)
 {
-    if (isExist(symbol->value))
+    if (isExist(name))
     {
-        errorDef(yylineno, symbol->value);
+        errorDef(yylineno, name);
     }
-    this->symbolTables.back().getEntries().emplace_back(Symbol(symbol->value, symbol->type, value, this->offset.top(),false));
+    this->symbolTables.back().getEntries().emplace_back(Symbol(symbol->value, symbol->type, value, this->offset.top(),false));//needs fix
     this->offset.top()++;
 }
 // add a function for "while" counter
