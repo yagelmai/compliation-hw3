@@ -35,9 +35,53 @@ void GlobalSymbs::addSymbol(Types type,string& name)
 
 bool GlobalSymbs::checkInWhile()
 {
-    if(in_while==0){
-        return false;
-    }
-    return true;
+    return in_while>0;
+}
+
+void GlobalSymbs::addFunction(Types type)
+{
+    //create new Function with current_function_parameters
+    //add to all_functions
+}
+void GlobalSymbs::enterWhile()
+{
+    in_while++;
+}
+void GlobalSymbs::exitWhile()
+{
+    in_while--;
+}
+void GlobalSymbs::openScope()
+{
+    //add InnerSymbol entry to symbolTables
+    //add int to offset stack(value should be equal to last value)
+
+}
+void GlobalSymbs::closeScope()
+{
+    //remove last InnerSymbol entry
+    //remove last in from offset stack
+}
+void GlobalSymbs::addFormal(Types type, string name)
+{
+    //add Formal to current_function_parameters
+}
+void GlobalSymbs::clearFormals()
+{
+    //empty current_function_parameters
+}
+void GlobalSymbs::currentFunctionType(Types type)
+{
+    current_function_type=type;
+}
+
+void GlobalSymbs::comparesTypesCast(Types first,Types second)
+{
+    //check if second type can be cast into first type
+    
+}
+int GlobalSymbs::getOffset()
+{
+
 }
 // add a function for "while" counter

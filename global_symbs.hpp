@@ -68,6 +68,7 @@ class GlobalSymbs
         std::list<Function> all_functions;
         static int in_while;
         std::list<Symbol> current_function_parameters;
+        Types current_function_type;
         GlobalSymbs();
         ~GlobalSymbs() = default;
         bool isExist(string id);
@@ -81,7 +82,6 @@ class GlobalSymbs
         void clearFormals();//implement
         void currentFunctionType(Types type);//implement
         void checkInWhile();
-        void addFormal(Types type, string id);
         void comparesTypesCast(Types first,Types second);
         int getOffset();//implement
 };
