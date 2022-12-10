@@ -122,7 +122,7 @@ Exp:                LPAREN Exp RPAREN           								{$$=$2;}
                     | Exp AND Exp               								{$$=$1;delete (Expression*)$3;}
                     | Exp OR Exp                								{$$=$1;delete (Expression*)$3;}
                     | Exp RELATIONAL Exp             							{$$=$1;delete (Expression*)$3}
-                    | LPAREN Type RPAREN Exp    								{DS->compareTypesCast($2->type,$4->type);$$=new Expression($2->type);delete (Type*)$2;delete (Expression*)$4;}//check if legal 
+                    | LPAREN Type RPAREN Exp    								{DS->compareTypesCast($2->type,$4->type);$$=new Expression($2->type);delete (Type*)$2;delete (Expression*)$4;}//if cast to byte make sure it's not bigger than 256
                     | Exp IF LPAREN Exp RPAREN ELSE Exp                         {$$=$1;checkLegalCast((Expression*)$1->type,(Expression*)$7->type);checkIfBool((Expression*)$4->type);delete (Expression*)$7;(Expression*)$4}
 
 ;
