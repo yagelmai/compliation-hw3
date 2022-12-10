@@ -22,10 +22,10 @@ Expression* ex;
 ExpressionList* exl;
 };
 //
-%nterm <ex> Call
-%nterm <exl> ExpList
-%nterm <ty> Type
-%nterm <ex> Exp
+%type <ex> Call
+%type <exl> ExpList
+%type <ty> Type
+%type <ex> Exp
 %right ASSIGN
 %left OR
 %left AND
