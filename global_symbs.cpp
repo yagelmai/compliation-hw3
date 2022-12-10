@@ -32,4 +32,12 @@ void GlobalSymbs::addSymbol(Types type,string& name)
     this->symbolTables.back().getEntries().emplace_back(Symbol(symbol->value, symbol->type, value, this->offset.top(),false));//needs fix
     this->offset.top()++;
 }
+
+bool GlobalSymbs::checkInWhile()
+{
+    if(in_while==0){
+        return false;
+    }
+    return true;
+}
 // add a function for "while" counter

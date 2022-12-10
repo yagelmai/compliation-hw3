@@ -67,7 +67,7 @@ class GlobalSymbs
         std::stack<int> offset;
         std::list<Function> all_functions;
         static int in_while;
-        std::list<
+        std::list<Symbol> current_function_parameters;
         GlobalSymbs();
         ~GlobalSymbs() = default;
         bool isExist(string id);

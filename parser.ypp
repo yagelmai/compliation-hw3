@@ -88,8 +88,8 @@ Statement:          LBRACE Statements RBRACE    								{;}
                     | IF LPAREN Exp RPAREN Statement                            {checkIfBool((Expression*)$3->type);delete (Expression*)$3;}
                     | IF LPAREN Exp RPAREN Statement ELSE Statement             {checkIfBool((Expression*)$3->type);delete (Expression*)$3;}
                     | WHILE LPAREN Exp RPAREN WhileM Statement                  {checkIfBool((Expression*)$3->type);delete (Expression*)$3;DS->exitWhile();}
-                    | BREAK SC          										{DS->checkInWhile();}
-                    | CONTINUE SC       										{DS->checkInWhile();}
+                    | BREAK SC          										{if(!DS->checkInWhile()) errorUnexpectedBreak(yylineno);}
+                    | CONTINUE SC       										{if(!DS->checkInWhile()) errorUnexpectedContinue(yylineno);}
 ;
 
 WhileM:             /*epsilon*/                                                 {DS->enterWhile();}
