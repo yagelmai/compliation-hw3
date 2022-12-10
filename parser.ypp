@@ -2,7 +2,8 @@
 	#include <iostream>	
 	#include <stdlib.h>
 	#include <stdio.h>
-    #define YYSTYPE Node*
+    #include <string>
+    //#define YYSTYPE Node*
     #include "global_symbs.hpp"         // all actions and the DS
     #include "hw3_output.hpp"
     using namespace output;
@@ -11,9 +12,20 @@
 	extern int yylineno;
 	void yyerror(const char*);
     using namespace std;
+    
 %}
-
+%union{
+int num;
+Type* ty;
+string id;
+Expression* ex;
+ExpressionList* exl;
+};
 //
+%nterm <ex> Call
+%nterm <exl> ExpList
+%nterm <ty> Type
+%nterm <ex> Exp
 %right ASSIGN
 %left OR
 %left AND
@@ -40,8 +52,8 @@
 %nonassoc COMMA
 %nonassoc LBRACE
 %nonassoc RBRACE
-%nonassoc ID
-%nonassoc NUM
+%nonassoc <id> ID
+%nonassoc <num> NUM
 %nonassoc STRING
 
 

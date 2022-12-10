@@ -81,7 +81,8 @@ void GlobalSymbs::comparesTypesCast(Types first,Types second)
     if(first==second) return;
     if(second==TYPE_BYTE && first==TYPE_INT) return;
     if(second==TYPE_INT && first==TYPE_BYTE) return;
-    
+    errorMismatch(yylineno);
+    exit(0);
 }
 int GlobalSymbs::getOffset()
 {
