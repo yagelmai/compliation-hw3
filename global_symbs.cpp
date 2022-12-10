@@ -78,6 +78,9 @@ void GlobalSymbs::currentFunctionType(Types type)
 void GlobalSymbs::comparesTypesCast(Types first,Types second)
 {
     //check if second type can be cast into first type
+    if(first==second) return;
+    if(second==TYPE_BYTE && first==TYPE_INT) return;
+    if(second==TYPE_INT && first==TYPE_BYTE) return;
     
 }
 int GlobalSymbs::getOffset()
