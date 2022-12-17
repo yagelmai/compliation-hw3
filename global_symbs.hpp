@@ -73,7 +73,7 @@ class GlobalSymbs
         ~GlobalSymbs() = default;
         bool isExist(string id);
         void addSymbol(Types type, string &name);
-        void addFunction(Types type);//implement
+        void addFunction(string name,Types type);//implement
         void enterWhile();//implement
         void exitWhile();//implement
         void openScope();//implement
