@@ -66,7 +66,7 @@ class GlobalSymbs
         std::list<InnerSymbs> symbolTables;
         std::stack<int> offset;
         std::list<Function> all_functions;
-        static int in_while;
+        int in_while;
         std::list<Symbol> current_function_parameters;
         Types current_function_type;
         GlobalSymbs();

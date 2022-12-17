@@ -38,10 +38,15 @@ bool GlobalSymbs::checkInWhile()
     return in_while>0;
 }
 
-void GlobalSymbs::addFunction(Types type)
+void GlobalSymbs::addFunction(string name, Types type)
 {
     //create new Function with current_function_parameters
     //add to all_functions
+    Function new_f(name, type);
+    while(!current_function_parameters.empty())
+    {
+        new_f.add_symbol(current_function_parameters.pop_front());
+    }
 }
 void GlobalSymbs::enterWhile()
 {
@@ -55,20 +60,27 @@ void GlobalSymbs::openScope()
 {
     //add InnerSymbol entry to symbolTables
     //add int to offset stack(value should be equal to last value)
-
+    InnerSymbs new_is();
+    symbolTables.emplace_back(new_is);
+    offset.emplace(offset.top());
 }
 void GlobalSymbs::closeScope()
 {
     //remove last InnerSymbol entry
     //remove last in from offset stack
+    symbolTables.pop_back();
+    offset.pop();
 }
 void GlobalSymbs::addFormal(Types type, string name)
 {
     //add Formal to current_function_parameters
+    current_function_parameters.emplace_back(Symbol(this,name,type,false));
+
 }
 void GlobalSymbs::clearFormals()
 {
     //empty current_function_parameters
+    current_function_parameters.clear();
 }
 void GlobalSymbs::currentFunctionType(Types type)
 {
@@ -86,6 +98,6 @@ void GlobalSymbs::comparesTypesCast(Types first,Types second)
 }
 int GlobalSymbs::getOffset()
 {
-
+    return offset.top();
 }
 // add a function for "while" counter

@@ -68,9 +68,12 @@ Funcs:              FuncDecl Funcs    										    {}
                     | /* epsilon */       										{}
 ;
 
-FuncDecl:           RetType ID LPAREN Formals RPAREN LBRACE Statements RBRACE   {DS->addFunction();DS->clearFormals();}//check if function with ID exists?
+FuncDecl:           RetType ID LPAREN Formals RPAREN LBRACE OpenScope Statements CloseScope RBRACE   {DS->addFunction();DS->clearFormals();}//check if function with ID exists?
 ;
-
+OpenScope:           /* epsilon */                                              {DS->openScope();}
+;
+CloseScope:          /* epsilon */                                              {DS->closeScope();}
+;
 RetType:            Type                										{DS->currentFunctionType($1->type);}
                     | VOID             										    {DS->currentFunctionType(TYPE_VOID);}
 ;
@@ -90,7 +93,7 @@ Statements:         Statement           										{;}
                     | Statements Statement  									{;}
 ;
 
-Statement:          LBRACE Statements RBRACE    								{;}
+Statement:          LBRACE OpenScope Statements CloseScope RBRACE    								{;}
                     | Type ID SC 											    {DS->addSymbol($1->type,$2);delete (Type*)$2;}
                     | Type ID ASSIGN Exp SC  									{compareTypesAssignment((Type*)$1->type,(Expression*)$4->type);DS->addSymbol($1->type,$2);delete (Type*)$2;}
                     | ID ASSIGN Exp SC  										{compareTypesAssignment(DS->getVarType($1),(Expression*)$3->type);}
