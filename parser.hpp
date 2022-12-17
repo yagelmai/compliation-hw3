@@ -33,6 +33,22 @@ class Expression: public Node
 public:
     
 }
+class ExpressionList: public Node
+{
+public:
+    std::list<Expression*> exp_list;
+    ExpressionList(){};
+    void addExpression(Expression* exp){
+        exp_list.emplace_back(exp);
+        std::list<Expression*>::iterator<Expression*> ite;
+        for (ite = exp_list.begin(); ite != exp_list.end(); ++ite) {
+            if((*ite)->value == exp->value){
+                //error formal already in function
+            }
+        }
+    }
+
+}
 class Relop: public Node{};
 
 class Id: public Node{};

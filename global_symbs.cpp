@@ -68,7 +68,7 @@ void GlobalSymbs::closeScope()
 {
     //remove last InnerSymbol entry
     //remove last in from offset stack
-    symbolTables.pop_back();
+    symbolTables.pop_back().printAllSymbs();
     offset.pop();
 }
 void GlobalSymbs::addFormal(Types type, string name)

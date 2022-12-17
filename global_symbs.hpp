@@ -40,7 +40,12 @@ public:
     {
         symbols = vector<Symbol>();
     }
-
+    printAllSymbs(){
+        while(!symbols.empty()){
+            output::printID(symbols.back().name,symbols.back().offset, symbols.back().type());
+            symbols.pop_back();
+        }
+    }
     vector<Symbol> &getEntries()
     {
         return this->symbols;
@@ -82,6 +87,7 @@ class GlobalSymbs
         void clearFormals();//implement
         void currentFunctionType(Types type);//implement
         void checkInWhile();
+        void checkVariables(string id, ExpressionList)
         void comparesTypesCast(Types first,Types second);
         int getOffset();//implement
 };

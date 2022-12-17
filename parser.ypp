@@ -72,7 +72,7 @@ FuncDecl:           RetType ID LPAREN Formals RPAREN LBRACE OpenScope Statements
 ;
 OpenScope:           /* epsilon */                                              {DS->openScope();}
 ;
-CloseScope:          /* epsilon */                                              {DS->closeScope();}
+CloseScope:          /* epsilon */                                              {output::endscope();DS->closeScope();}
 ;
 RetType:            Type                										{DS->currentFunctionType($1->type);}
                     | VOID             										    {DS->currentFunctionType(TYPE_VOID);}
