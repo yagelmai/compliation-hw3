@@ -16,7 +16,7 @@ class Symbol
     int offset;
     bool is_func;
     Symbol(){}
-    Symbol(GlobalSymbs* D,string &name, Types &type, bool is_func)
+    Symbol(GlobalSymbs* D,string name, Types type, bool is_func)
     {
         type = type;
         name = name;
@@ -24,8 +24,8 @@ class Symbol
         offset = D->getOffset();
     }
 
-    string &getName() { return this->name; }
-    Types &getTypes() { return this->type; }
+    string getName() { return this->name; }
+    Types getTypes() { return this->type; }
     int getOffset() { return this->offset; }
     //void addSymbol
 };
