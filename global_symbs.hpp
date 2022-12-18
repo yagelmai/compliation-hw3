@@ -89,6 +89,7 @@ class GlobalSymbs
         void checkVariables(string id, ExpressionList)
         void comparesTypesCast(Types first,Types second);
         int getOffset();//implement
+        void compareTypesAssignment(Types assigned_to, Types assigned_from);
 };
 
 #endif /*GLOB_SYMBS*/

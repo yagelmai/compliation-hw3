@@ -64,6 +64,9 @@ void GlobalSymbs::openScope()
     symbolTables.emplace_back(new_is);
     offset.emplace(offset.top());]
 }
+void GlobalSymbs::compareTypesAssignment(Types assigned_to, Types assigned_from){
+    
+}
 void GlobalSymbs::closeScope()
 {
     //remove last InnerSymbol entry

@@ -32,7 +32,7 @@ class Expression: public Node
 {
 public:
     
-}
+};
 class ExpressionList: public Node
 {
 public:
@@ -48,7 +48,7 @@ public:
         }
     }
 
-}
+};
 class Relop: public Node{};
 
 class Id: public Node{};
@@ -78,12 +78,12 @@ class Statement : public Node
 {
 // Tyte ID;
 public:
+};
 Statement(Type *t, string id_val)
 {
     Symbol *symbol = new Symbol();
     symbol->type = t->type;
     symbol->value = id_val;
     //DS->addSymbol(symbol, id_val);
-}
 };
 #endif //_PARSER_H
