@@ -15,7 +15,6 @@ class Symbol
     Types type;
     int offset;
     bool is_func;
-    Symbol(){}
     Symbol(GlobalSymbs* D,string name, Types type, bool is_func)
     {
         type = type;
