@@ -62,7 +62,7 @@ void GlobalSymbs::openScope()
     //add int to offset stack(value should be equal to last value)
     InnerSymbs new_is();
     symbolTables.emplace_back(new_is);
-    offset.emplace(offset.top());
+    offset.emplace(offset.top());]
 }
 void GlobalSymbs::closeScope()
 {
