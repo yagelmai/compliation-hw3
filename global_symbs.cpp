@@ -22,7 +22,10 @@ bool GlobalSymbs::isExist(string id)
     }
     return false;
 }
-
+void GlobalSymbs::checkVariables(string id, ExpressionList El)
+{
+    
+}
 void GlobalSymbs::addSymbol(Types type,string& name)
 {
     if (isExist(name))
@@ -65,7 +68,7 @@ void GlobalSymbs::openScope()
     offset.emplace(offset.top());]
 }
 void GlobalSymbs::compareTypesAssignment(Types assigned_to, Types assigned_from){
-    
+
 }
 void GlobalSymbs::closeScope()
 {

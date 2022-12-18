@@ -86,7 +86,7 @@ class GlobalSymbs
         void clearFormals();//implement
         void currentFunctionType(Types type);//implement
         void checkInWhile();
-        void checkVariables(string id, ExpressionList)
+        void checkVariables(string id, ExpressionList El);
         void comparesTypesCast(Types first,Types second);
         int getOffset();//implement
         void compareTypesAssignment(Types assigned_to, Types assigned_from);
