@@ -28,10 +28,12 @@ public:
     Node(Types type):type(type){};
 };
 
+#define YYSTYPE Node*
+
 class Expression: public Node
 {
 public:
-    
+    Expression(Types type):Node(type){};
 };
 class ExpressionList: public Node
 {
@@ -49,20 +51,6 @@ public:
     }
 
 };
-class Relop: public Node{};
-
-class Id: public Node{};
-
-class BooleanOperation: public Node{};
-
-class RelationalOperation: public Node{};
-
-class EqualityOperation: public Node{};
-
-class Multiplicative: public Node{};
-
-class Additive: public Node{};
-
 class Number : public Node
 {
     Number(Types type):Node(type) {};
