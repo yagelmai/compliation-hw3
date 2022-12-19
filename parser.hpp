@@ -2,7 +2,6 @@
 #define _PARSER_H
 #include <vector>
 #include "hw3_output.hpp"
-#include "global_symbs.hpp"
 extern int yylineno;
 using namespace output;
 using namespace std;
