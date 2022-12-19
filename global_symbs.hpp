@@ -34,7 +34,7 @@ public:
     InnerSymbs()
     {
         symbols = vector<Symbol>();
-    }
+    };
     void printAllSymbs(){
         while(!symbols.empty()){
             output::printID(symbols.back().name,symbols.back().offset, "change this to type from symbol");

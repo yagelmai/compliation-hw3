@@ -2,7 +2,7 @@
 #define _PARSER_H
 #include <vector>
 extern int yylineno;
-using namespace output;
+
 using namespace std;
 #include <list>
 
@@ -32,6 +32,7 @@ class Expression: public Node
 {
 public:
     Expression(Types type):Node(type){};
+    
 };
 class ExpressionList: public Node
 {
@@ -42,7 +43,7 @@ public:
         exp_list.emplace_back(exp);
         std::list<Expression*>::iterator ite;
         for (ite = exp_list.begin(); ite != exp_list.end(); ++ite) {
-            if((*ite)->value == exp->value){
+            if((*ite)->getValue() == exp->value){
                 //error formal already in function
             }
         }
