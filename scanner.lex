@@ -9,6 +9,7 @@ void printundef();
 using namespace output;
 #include <iostream>
 #include <stdlib.h>
+#define YYSTYPE Node*
 %}
 
 %option yylineno
@@ -48,7 +49,7 @@ continue                    return CONTINUE;
 ==|!=|<=|>=|<|>             return RELATIONAL;
 {l_binop}                   return MULTIPLICATIVE;
 {r_binop}                   return ADDITIVE;
-[a-zA-Z][0-9a-zA-Z]*        {yylval = new Node(TYPE_UNDEFINED);yylval->value=yytext; return ID};
+[a-zA-Z][0-9a-zA-Z]*        {yylval = new Node(TYPE_UNDEFINED);yylval->value=yytext; return ID;};
 [1-9][0-9]*|0               return NUM;//what to do when number starts with 0?
 \"([^\n\r\"\\]|\\[rnt"\\])+\" return STRING;
 \"([^\\\n\r\"]|{es})*       errorLex(yylineno);exit(0);
