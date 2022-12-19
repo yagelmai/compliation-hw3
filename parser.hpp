@@ -5,7 +5,7 @@
 extern int yylineno;
 using namespace output;
 using namespace std;
-
+#include <list>
 
 enum Types
 {
@@ -38,7 +38,7 @@ class ExpressionList: public Node
 {
 public:
     std::list<Expression*> exp_list;
-    ExpressionList(){};
+    ExpressionList():Node(TYPE_UNDEFINED){};
     void addExpression(Expression* exp){
         exp_list.emplace_back(exp);
         std::list<Expression*>::iterator<Expression*> ite;
