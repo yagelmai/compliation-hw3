@@ -1,7 +1,6 @@
 #ifndef _PARSER_H
 #define _PARSER_H
 #include <vector>
-#include "hw3_output.hpp"
 extern int yylineno;
 using namespace output;
 using namespace std;
@@ -52,6 +51,7 @@ public:
 };
 class Number : public Node
 {
+    public:
     int num;
     Number(Types type, int num):Node(type),num(num) {};
 };
