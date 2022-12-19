@@ -26,13 +26,13 @@ void GlobalSymbs::checkVariables(string id, ExpressionList El)
 {
     
 }
-void GlobalSymbs::addSymbol(Types type,string& name)
+void GlobalSymbs::addSymbol(Types type,string name)
 {
     if (isExist(name))
     {
-        errorDef(yylineno, name);
+        errorDef(yylineno, name);Symbol()
     }
-    this->symbolTables.back().getEntries().emplace_back(Symbol(symbol->value, symbol->type, value, this->offset.top(),false));//needs fix
+    this->symbolTables.back().getEntries().emplace_back(Symbol(this, name, type, false,this->getOffset()));//needs fix
     this->offset.top()++;
 }
 

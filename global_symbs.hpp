@@ -15,11 +15,8 @@ class Symbol
     Types type;
     int offset;
     bool is_func;
-    Symbol(GlobalSymbs* D,string name, Types type, bool is_func)
+    Symbol(GlobalSymbs* D,string name, Types type, bool is_func,int offset):type(type),name(name),is_func(is_func),offset(offset)
     {
-        type = type;
-        name = name;
-        is_func=is_func;
         offset = D->getOffset();
     }
 
@@ -39,9 +36,9 @@ public:
     {
         symbols = vector<Symbol>();
     }
-    printAllSymbs(){
+    void printAllSymbs(){
         while(!symbols.empty()){
-            output::printID(symbols.back().name,symbols.back().offset, symbols.back().type());
+            output::printID(symbols.back().name,symbols.back().offset, symbols.back().type);
             symbols.pop_back();
         }
     }
@@ -62,7 +59,7 @@ class Function
     {
         symbols.emplace_back(sym);//do we have to check if same name appears twice in formals?
     }
-}
+};
 
 class GlobalSymbs
 {

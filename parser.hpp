@@ -41,7 +41,7 @@ public:
     ExpressionList():Node(TYPE_UNDEFINED){};
     void addExpression(Expression* exp){
         exp_list.emplace_back(exp);
-        std::list<Expression*>::iterator<Expression*> ite;
+        std::list<Expression*>::iterator ite;
         for (ite = exp_list.begin(); ite != exp_list.end(); ++ite) {
             if((*ite)->value == exp->value){
                 //error formal already in function
@@ -52,7 +52,8 @@ public:
 };
 class Number : public Node
 {
-    Number(Types type):Node(type) {};
+    int num;
+    Number(Types type, int num):Node(type),num(num) {};
 };
 
 class Type : public Node
