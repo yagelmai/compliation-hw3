@@ -15,9 +15,8 @@ class Symbol
     Types type;
     int offset;
     bool is_func;
-    Symbol(GlobalSymbs* D,string name, Types type, bool is_func,int offset):type(type),name(name),is_func(is_func),offset(offset)
+    Symbol(string name, Types type, bool is_func,int offset):type(type),name(name),is_func(is_func),offset(offset)
     {
-        offset = D->getOffset();
     }
 
     string getName() { return this->name; }
@@ -38,7 +37,7 @@ public:
     }
     void printAllSymbs(){
         while(!symbols.empty()){
-            output::printID(symbols.back().name,symbols.back().offset, symbols.back().type);
+            output::printID(symbols.back().name,symbols.back().offset, "change this to type from symbol");
             symbols.pop_back();
         }
     }
@@ -82,11 +81,14 @@ class GlobalSymbs
         void addFormal(Types type, string name);//implemnt
         void clearFormals();//implement
         void currentFunctionType(Types type);//implement
-        void checkInWhile();
+        bool checkInWhile();
         void checkVariables(string id, ExpressionList El);
         void comparesTypesCast(Types first,Types second);
         int getOffset();//implement
         void compareTypesAssignment(Types assigned_to, Types assigned_from);
+        void checkFunctionType(Types type);
+        void checkIfBool(Types type);
+        Types getFunctionType(string id);
 };
 
 #endif /*GLOB_SYMBS*/

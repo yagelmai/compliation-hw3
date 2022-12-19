@@ -26,19 +26,31 @@ void GlobalSymbs::checkVariables(string id, ExpressionList El)
 {
     
 }
+void GlobalSymbs::checkFunctionType(Types type)
+{
+    
+}
+void GlobalSymbs::checkIfBool(Types type)
+{
+    
+}
 void GlobalSymbs::addSymbol(Types type,string name)
 {
     if (isExist(name))
     {
-        errorDef(yylineno, name);Symbol()
+        errorDef(yylineno, name);
     }
-    this->symbolTables.back().getEntries().emplace_back(Symbol(this, name, type, false,this->getOffset()));//needs fix
+    this->symbolTables.back().getEntries().emplace_back(Symbol(name, type, false,this->getOffset()));//needs fix
     this->offset.top()++;
 }
 
 bool GlobalSymbs::checkInWhile()
 {
     return in_while>0;
+}
+
+Types GlobalSymbs::getFunctionType(string id){
+
 }
 
 void GlobalSymbs::addFunction(string name, Types type)
@@ -80,7 +92,7 @@ void GlobalSymbs::closeScope()
 void GlobalSymbs::addFormal(Types type, string name)
 {
     //add Formal to current_function_parameters
-    current_function_parameters.emplace_back(Symbol(this,name,type,false));
+    current_function_parameters.emplace_back(Symbol(name,type,false,this->getOffset()));
 
 }
 void GlobalSymbs::clearFormals()
