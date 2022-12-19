@@ -104,13 +104,13 @@ Call:               ID LPAREN ExpList RPAREN    								{DS.checkVariables($1,$3
                     | ID LPAREN RPAREN          								{DS.checkVariables($1,nullptr);(Expression*)$$=new Expression(DS.getFunctionType($1->value));}//check if function doesn't have variables
 ;
 
-ExpList:            Exp                         								{((ExpressionList*)$$)=new ExpressionList();((ExpressionList*)$$)->addExpression($1);}
+ExpList:            Exp                         								{$$=new ExpressionList();((ExpressionList*)$$)->addExpression($1);}
                     | Exp COMMA ExpList         								{(ExpressionList*)$3->addExpression($1);}
 ;
 
-Type:               INT                         								{((Type*)$$) = new Type(TYPE_INT);}
-                    | BYTE                      								{((Type*)$$) = new Type(TYPE_BYTE);}
-                    | BOOL                      								{((Type*)$$) = new Type(TYPE_BOOL);}
+Type:               INT                         								{$$ = new Type(TYPE_INT);}
+                    | BYTE                      								{$$ = new Type(TYPE_BYTE);}
+                    | BOOL                      								{$$ = new Type(TYPE_BOOL);}
 ;
 
 Exp:                LPAREN Exp RPAREN           								{$$=$2;} 
@@ -118,11 +118,11 @@ Exp:                LPAREN Exp RPAREN           								{$$=$2;}
                     | Exp ADDITIVE Exp           								{($1->type>$3->type)?($$=$1):($$=$3);} // (x = 3 if 4>5 else 2) //x=2//expression should get the bigger type
                     | ID                        								{;} //Expression should get same type as ID
                     | Call                      								{$$=$1;}
-                    | NUM                       								{((Expression*)$$)=new Expression(TYPE_INT);}
-                    | NUM B                     								{((Expression*)$$)=new Expression(TYPE_BYTE);}//when does it happen?
-                    | STRING                    								{((Expression*)$$)=new Expression(TYPE_STRING);}
-                    | TRUE                      								{((Expression*)$$)=new Expression(TYPE_BOOL);}
-                    | FALSE                     								{((Expression*)$$)=new Expression(TYPE_BOOL);}
+                    | NUM                       								{$$=new Expression(TYPE_INT);}
+                    | NUM B                     								{$$=new Expression(TYPE_BYTE);}//when does it happen?
+                    | STRING                    								{$$=new Expression(TYPE_STRING);}
+                    | TRUE                      								{$$=new Expression(TYPE_BOOL);}
+                    | FALSE                     								{$$=new Expression(TYPE_BOOL);}
                     | NOT Exp                   								{$$=$2;}
                     | Exp AND Exp               								{$$=$1;delete (Expression*)$3;}
                     | Exp OR Exp                								{$$=$1;delete (Expression*)$3;}
