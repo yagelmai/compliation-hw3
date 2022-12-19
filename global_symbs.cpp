@@ -60,7 +60,8 @@ void GlobalSymbs::addFunction(string name, Types type)
     Function new_f(name, type);
     while(!current_function_parameters.empty())
     {
-        new_f.add_symbol(current_function_parameters.pop_front());
+        new_f.add_symbol(current_function_parameters.front());
+        current_function_parameters.pop_front();
     }
 }
 void GlobalSymbs::enterWhile()
@@ -77,7 +78,7 @@ void GlobalSymbs::openScope()
     //add int to offset stack(value should be equal to last value)
     InnerSymbs new_is();
     symbolTables.emplace_back(new_is);
-    offset.emplace(offset.top());]
+    offset.emplace(offset.top());
 }
 void GlobalSymbs::compareTypesAssignment(Types assigned_to, Types assigned_from){
 
@@ -86,7 +87,8 @@ void GlobalSymbs::closeScope()
 {
     //remove last InnerSymbol entry
     //remove last in from offset stack
-    symbolTables.pop_back().printAllSymbs();
+    symbolTables.back().printAllSymbs();
+    symbolTables.pop_back();
     offset.pop();
 }
 void GlobalSymbs::addFormal(Types type, string name)
