@@ -41,7 +41,7 @@ void GlobalSymbs::addSymbol(Types type,std::string name)
         output::errorDef(yylineno, name);
         exit(0);
     }
-    this->symbolTables.back().getEntries().emplace(Symbol(name, type, false,this->getOffset()));//needs fix
+    this->symbolTables.back().getEntries().emplace_back(Symbol(name, type, false,this->getOffset()));//needs fix
     this->offset.top()++;
     std::cout<<"symbol " << name << "added"<< std::endl;
 }
@@ -101,7 +101,7 @@ void GlobalSymbs::openScope()
     //add int to offset stack(value should be equal to last value)
     InnerSymbs new_is;
     symbolTables.emplace_back(new_is);
-    offset.emplace(offset.top());
+    offset.emplace_back(offset.top());
 }
 void GlobalSymbs::compareTypesAssignment(Types assigned_to, Types assigned_from){
 
@@ -119,7 +119,7 @@ void GlobalSymbs::addFormal(Types type, std::string name)
     //add Formal to current_function_parameters
     Symbol new_s(name, type, false,this->symbolTables.back().getEntries().back().getOffset()-1);
     this->symbolTables.back().getEntries().emplace_back(new_s);
-    current_function_parameters.emplace(new_s);
+    current_function_parameters.emplace_back(new_s);
 
 }
 void GlobalSymbs::clearFormals()
@@ -153,11 +153,11 @@ void GlobalSymbs::printFunctions()
 {
     for(Function fun: this->all_functions)
     {
-        vector<string> argtypes;
+        vector<std::string> argtypes;
         for(Symbol sym: fun.symbols){
-            argtypes.emplace(this->typeToString(sym.type));
+            argtypes.emplace_back(this->typeToString(sym.type));
         }
-        output::printID(fun.name,0,output::makeFunctionType(fun.return_type,argtypes));
+        output::printID(fun.name,0,output::makeFunctionType(this->typeToString(fun.return_type),argtypes));
     }
 }
 string GlobalSymbs::typeToString(Types type){
