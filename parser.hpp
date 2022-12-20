@@ -24,9 +24,9 @@ public:
     Types type;
 
     Node(Types type):type(type){};
-};
-string getValue(){
-    return value;
+    string getValue(){
+        return value;
+    }
 }
 #define YYSTYPE Node*
 
@@ -36,6 +36,7 @@ public:
     Expression(Types type):Node(type){};
     
 };
+
 class ExpressionList: public Node
 {
 public:
