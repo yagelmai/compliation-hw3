@@ -2,7 +2,7 @@
 #define _PARSER_H
 #include <vector>
 extern int yylineno;
-
+#include <string>
 using namespace std;
 #include <list>
 
@@ -27,7 +27,7 @@ public:
     string getValue(){
         return value;
     }
-}
+};
 #define YYSTYPE Node*
 
 class Expression: public Node
