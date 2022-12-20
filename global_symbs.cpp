@@ -8,7 +8,7 @@ GlobalSymbs::GlobalSymbs()
     in_while = 0;
 }
 
-bool GlobalSymbs::isExist(string id)
+bool GlobalSymbs::isExist(std::string id)
 {
     for (InnerSymbs iner_symb : symbolTables)
     {
@@ -22,7 +22,7 @@ bool GlobalSymbs::isExist(string id)
     }
     return false;
 }
-void GlobalSymbs::checkVariables(string id, ExpressionList El)
+void GlobalSymbs::checkVariables(std::string id, ExpressionList El)
 {
     
 }
@@ -34,7 +34,7 @@ void GlobalSymbs::checkIfBool(Types type)
 {
     
 }
-void GlobalSymbs::addSymbol(Types type,string name)
+void GlobalSymbs::addSymbol(Types type,std::string name)
 {
     if (isExist(name))
     {
@@ -49,7 +49,7 @@ bool GlobalSymbs::checkInWhile()
     return in_while>0;
 }
 
-Types GlobalSymbs::getVarType(string id){
+Types GlobalSymbs::getVarType(std::string id){
     for (InnerSymbs iner_symb : symbolTables)
     {
         for (Symbol symb : iner_symb.getEntries())
@@ -63,7 +63,7 @@ Types GlobalSymbs::getVarType(string id){
     return TYPE_UNDEFINED;
 }
 
-Types GlobalSymbs::getFunctionType(string id){
+Types GlobalSymbs::getFunctionType(std::string id){
     for(Function fun: this->all_functions)
     {
         if(fun.name==id)
@@ -74,7 +74,7 @@ Types GlobalSymbs::getFunctionType(string id){
     return TYPE_UNDEFINED;
 }
 
-void GlobalSymbs::addFunction(string name, Types type)
+void GlobalSymbs::addFunction(std::string name, Types type)
 {
     //create new Function with current_function_parameters
     //add to all_functions
@@ -112,7 +112,7 @@ void GlobalSymbs::closeScope()
     symbolTables.pop_back();
     offset.pop();
 }
-void GlobalSymbs::addFormal(Types type, string name)
+void GlobalSymbs::addFormal(Types type, std::string name)
 {
     //add Formal to current_function_parameters
     current_function_parameters.emplace_back(Symbol(name,type,false,this->getOffset()));

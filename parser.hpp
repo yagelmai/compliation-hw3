@@ -20,11 +20,11 @@ enum Types
 class Node
 {
 public:
-    string value;
+    std::string value;
     Types type;
 
     Node(Types type):type(type){};
-    string getValue(){
+    std::string getValue(){
         return value;
     }
 };

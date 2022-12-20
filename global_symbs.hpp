@@ -11,15 +11,15 @@
 class Symbol
 {
     public:
-    string name;
+    std::string name;
     Types type;
     bool is_func;
     int offset;
-    Symbol(string name, Types type, bool is_func,int offset):name(name),type(type),is_func(is_func),offset(offset)
+    Symbol(std::string name, Types type, bool is_func,int offset):name(name),type(type),is_func(is_func),offset(offset)
     {
     };
 
-    string getName() { return this->name; }
+    std::string getName() { return this->name; }
     Types getTypes() { return this->type; }
     int getOffset() { return this->offset; }
     //void addSymbol
@@ -45,7 +45,7 @@ public:
     {
         return this->symbols;
     }
-    string typeToString(Types type)
+    std::string typeToString(Types type)
     {
         switch(type){
             case TYPE_BOOL: return "bool";
@@ -61,9 +61,9 @@ class Function
 {
     vector<Symbol> symbols;
     public:
-    string name;
+    std::string name;
     Types return_type;
-    Function(string name,Types return_type):name(name),return_type(return_type){}
+    Function(std::string name,Types return_type):name(name),return_type(return_type){}
     void add_symbol(Symbol sym)
     {
         symbols.emplace_back(sym);//do we have to check if same name appears twice in formals?
@@ -81,25 +81,25 @@ class GlobalSymbs
         Types current_function_type;
         GlobalSymbs();
         ~GlobalSymbs() = default;
-        bool isExist(string id);
-        void addSymbol(Types type, string name);
-        void addFunction(string name,Types type);//implement
+        bool isExist(std::string id);
+        void addSymbol(Types type, std::string name);
+        void addFunction(std::string name,Types type);//implement
         void enterWhile();//implement
         void exitWhile();//implement
         void openScope();//implement
         void closeScope();//implement
-        void addFormal(Types type, string name);//implemnt
+        void addFormal(Types type, std::string name);//implemnt
         void clearFormals();//implement
         void currentFunctionType(Types type);//implement
         bool checkInWhile();
-        void checkVariables(string id, ExpressionList El);
+        void checkVariables(std::string id, ExpressionList El);
         void comparesTypesCast(Types first,Types second);
         int getOffset();//implement
         void compareTypesAssignment(Types assigned_to, Types assigned_from);
         void checkFunctionType(Types type);
         void checkIfBool(Types type);
-        Types getVarType(string id);
-        Types getFunctionType(string id);
+        Types getVarType(std::string id);
+        Types getFunctionType(std::string id);
 };
 
 #endif /*GLOB_SYMBS*/
