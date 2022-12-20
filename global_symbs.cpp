@@ -126,7 +126,7 @@ void GlobalSymbs::clearFormals()
 {
     //empty current_function_parameters
     current_function_parameters.clear();
-    while(this->symbolTables.back().getEntries().back().getOffset()<0)
+    while(!this->symbolTables.back().getEntries().empty() && this->symbolTables.back().getEntries().back().getOffset()<0)
     {
         this->symbolTables.back().getEntries().pop_back();
     }
