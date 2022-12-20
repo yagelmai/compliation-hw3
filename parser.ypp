@@ -51,14 +51,14 @@
 %%
 
 
-Prog:               Funcs               										{}//check if main function exists, print scope
+Prog:               OpenScope Funcs CloseScope              			        {DS.printFunctions();}//check if main function exists, print scope
 ;
 
 Funcs:              FuncDecl Funcs    										    {}
                     | /* epsilon */       										{}
 ;
 
-FuncDecl:           RetType ID LPAREN Formals RPAREN LBRACE OpenScope Statements CloseScope RBRACE   {DS.addFunction(($2->value), DS.current_function_type);DS.clearFormals();}//check if function with ID exists?
+FuncDecl:           RetType ID OpenScope LPAREN Formals RPAREN LBRACE Statements CloseScope RBRACE   {DS.addFunction(($2->value), DS.current_function_type);DS.clearFormals();}//check if function with ID exists?
 ;
 OpenScope:           /* epsilon */                                              {DS.openScope();}
 ;
@@ -90,9 +90,9 @@ Statement:          LBRACE OpenScope Statements CloseScope RBRACE    								{;}
                     | Call SC           										{delete ((Expression*)$1);}
                     | RETURN SC         										{DS.checkFunctionType(TYPE_VOID);}
                     | RETURN Exp SC     										{DS.checkFunctionType((((Expression*)$2)->type));}
-                    | IF LPAREN Exp RPAREN Statement                            {DS.checkIfBool((((Expression*)$3)->type));delete ((Expression*)$3);}
-                    | IF LPAREN Exp RPAREN Statement ELSE Statement             {DS.checkIfBool((((Expression*)$3)->type));delete ((Expression*)$3);}
-                    | WHILE LPAREN Exp RPAREN WhileM Statement                  {DS.checkIfBool((((Expression*)$3)->type));delete ((Expression*)$3);DS.exitWhile();}
+                    | IF LPAREN Exp RPAREN OpenScope Statement CloseScope                           {DS.checkIfBool((((Expression*)$3)->type));delete ((Expression*)$3);}
+                    | IF LPAREN Exp RPAREN OpenScope Statement CloseScope ELSE OpenScope Statement CloseScope            {DS.checkIfBool((((Expression*)$3)->type));delete ((Expression*)$3);}
+                    | WHILE LPAREN Exp RPAREN OpenScope WhileM Statement CloseScope                  {DS.checkIfBool((((Expression*)$3)->type));delete ((Expression*)$3);DS.exitWhile();}
                     | BREAK SC          										{if(!(DS.checkInWhile())) {errorUnexpectedBreak(yylineno);}}
                     | CONTINUE SC       										{if(!(DS.checkInWhile())) {errorUnexpectedContinue(yylineno);}}
 ;

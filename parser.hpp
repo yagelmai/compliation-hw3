@@ -59,9 +59,8 @@ class Number : public Node
     public:
     int num;
     Number(Types type, string num_s):Node(type) {
-        num= "well";
+        num=std::stoi(num_s);
     };
-};
 
 class Type : public Node
 {

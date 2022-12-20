@@ -64,8 +64,9 @@ public:
 
 class Function
 {
-    vector<Symbol> symbols;
+    
     public:
+    vector<Symbol> symbols;
     std::string name;
     Types return_type;
     Function(std::string name,Types return_type):name(name),return_type(return_type){}
@@ -105,6 +106,8 @@ class GlobalSymbs
         void checkIfBool(Types type);
         Types getVarType(std::string id);
         Types getFunctionType(std::string id);
+        void printFunctions();
+        string typeToString(Types type);
 };
 
 #endif /*GLOB_SYMBS*/

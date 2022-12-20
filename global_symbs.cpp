@@ -41,7 +41,7 @@ void GlobalSymbs::addSymbol(Types type,std::string name)
         output::errorDef(yylineno, name);
         exit(0);
     }
-    this->symbolTables.back().getEntries().emplace_back(Symbol(name, type, false,this->getOffset()));//needs fix
+    this->symbolTables.back().getEntries().emplace(Symbol(name, type, false,this->getOffset()));//needs fix
     this->offset.top()++;
     std::cout<<"symbol " << name << "added"<< std::endl;
 }
@@ -117,13 +117,19 @@ void GlobalSymbs::closeScope()
 void GlobalSymbs::addFormal(Types type, std::string name)
 {
     //add Formal to current_function_parameters
-    current_function_parameters.emplace_back(Symbol(name,type,false,this->getOffset()));
+    Symbol new_s(name, type, false,this->symbolTables.back().getEntries().back().getOffset()-1);
+    this->symbolTables.back().getEntries().emplace_back(new_s);
+    current_function_parameters.emplace(new_s);
 
 }
 void GlobalSymbs::clearFormals()
 {
     //empty current_function_parameters
     current_function_parameters.clear();
+    while(this->symbolTables.back().getEntries().back().getOffset()<0)
+    {
+        this->symbolTables.back().getEntries().pop_back();
+    }
 }
 void GlobalSymbs::currentFunctionType(Types type)
 {
@@ -142,5 +148,25 @@ void GlobalSymbs::comparesTypesCast(Types first,Types second)
 int GlobalSymbs::getOffset()
 {
     return offset.top();
+}
+void GlobalSymbs::printFunctions()
+{
+    for(Function fun: this->all_functions)
+    {
+        vector<string> argtypes;
+        for(Symbol sym: fun.symbols){
+            argtypes.emplace(this->typeToString(sym.type));
+        }
+        output::printID(fun.name,0,output::makeFunctionType(fun.return_type,argtypes));
+    }
+}
+string GlobalSymbs::typeToString(Types type){
+    switch(type){
+            case TYPE_BOOL: return "BOOL";
+            case TYPE_BYTE: return "BYTE";
+            case TYPE_INT: return "INT";
+            case TYPE_STRING: return "STRING";
+            default: return "ERROR";
+        }
 }
 // add a function for "while" counter
