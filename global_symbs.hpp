@@ -92,7 +92,7 @@ class GlobalSymbs
         void clearFormals();//implement
         void currentFunctionType(Types type);//implement
         bool checkInWhile();
-        void checkVariables(std::string id, ExpressionList El);
+        void checkVariables(std::string id, ExpressionList* El);
         void comparesTypesCast(Types first,Types second);
         int getOffset();//implement
         void compareTypesAssignment(Types assigned_to, Types assigned_from);

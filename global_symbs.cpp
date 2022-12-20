@@ -22,7 +22,7 @@ bool GlobalSymbs::isExist(std::string id)
     }
     return false;
 }
-void GlobalSymbs::checkVariables(std::string id, ExpressionList El)
+void GlobalSymbs::checkVariables(std::string id, ExpressionList* El)
 {
     
 }
