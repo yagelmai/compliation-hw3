@@ -61,7 +61,7 @@ class Number : public Node
     Number(Types type, string num_s):Node(type) {
         num=std::stoi(num_s);
     };
-
+};
 class Type : public Node
 {
 public:

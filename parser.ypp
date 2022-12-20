@@ -10,7 +10,6 @@
 	int yylex();
 	extern int yylineno;
 	void yyerror(const char*);
-    using namespace std;
     GlobalSymbs DS; // this is our DS that contain all the symbols in the code
     
 %}
