@@ -10,6 +10,7 @@ using namespace output;
 using namespace std;
 #include <iostream>
 #include <stdlib.h>
+
 %}
 
 %option yylineno

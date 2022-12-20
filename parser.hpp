@@ -28,7 +28,7 @@ public:
         return value;
     }
 };
-#define YYSTYPE Node*
+
 
 class Expression: public Node
 {
