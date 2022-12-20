@@ -7,6 +7,8 @@
 #include <stack>
 #include "parser.hpp"
 #include "hw3_output.hpp"
+#include <iostream>
+
 using namespace std;
 class Symbol
 {
