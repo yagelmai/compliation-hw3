@@ -2,10 +2,10 @@
 
 /* Declarations section */
 #include <stdio.h>
+#include "parser.hpp"
 void printundef();
 #include "hw3_output.hpp"
 #include "parser.tab.hpp"
-#include "parser.hpp"
 using namespace output;
 using namespace std;
 #include <iostream>

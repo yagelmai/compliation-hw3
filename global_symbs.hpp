@@ -5,8 +5,8 @@
 #include <string>
 #include <list>
 #include <stack>
-#include "hw3_output.hpp"
 #include "parser.hpp"
+#include "hw3_output.hpp"
 using namespace std;
 class Symbol
 {

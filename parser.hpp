@@ -1,10 +1,10 @@
 #ifndef _PARSER_H
 #define _PARSER_H
 #include <vector>
-extern int yylineno;
 #include <string>
-using namespace std;
 #include <list>
+extern int yylineno;
+using namespace std;
 #define YYSTYPE Node*
 
 enum Types
