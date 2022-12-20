@@ -3,7 +3,6 @@
 	#include <stdlib.h>
 	#include <stdio.h>
     #include <string>
-    #define YYSTYPE Node*
     #include "global_symbs.hpp"         // all actions and the DS
     #include "hw3_output.hpp"
     using namespace output;

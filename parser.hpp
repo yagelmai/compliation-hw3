@@ -5,6 +5,7 @@ extern int yylineno;
 #include <string>
 using namespace std;
 #include <list>
+#define YYSTYPE Node*
 
 enum Types
 {
