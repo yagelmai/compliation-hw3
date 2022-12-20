@@ -57,7 +57,7 @@ Funcs:              FuncDecl Funcs    										    {}
                     | /* epsilon */       										{}
 ;
 
-FuncDecl:           RetType ID LPAREN Formals RPAREN LBRACE OpenScope Statements CloseScope RBRACE   {DS.addFunction();DS.clearFormals();}//check if function with ID exists?
+FuncDecl:           RetType ID LPAREN Formals RPAREN LBRACE OpenScope Statements CloseScope RBRACE   {DS.addFunction(($2->value), DS.current_function_type);DS.clearFormals();}//check if function with ID exists?
 ;
 OpenScope:           /* epsilon */                                              {DS.openScope();}
 ;
@@ -126,8 +126,8 @@ Exp:                LPAREN Exp RPAREN           								{$$=$2;}
                     | Exp AND Exp               								{$$=$1;delete (Expression*)$3;}
                     | Exp OR Exp                								{$$=$1;delete (Expression*)$3;}
                     | Exp RELATIONAL Exp             							{$$=$1;delete (Expression*)$3;}
-                    | LPAREN Type RPAREN Exp    								{DS.compareTypesAssignment($2->type,$4->type);$$=new Expression($2->type);delete (Type*)$2;delete (Expression*)$4;}//if cast to byte make sure it's not bigger than 256
-                    | Exp IF LPAREN Exp RPAREN ELSE Exp                         {$$=$1;DS.compareTypesAssignment((Expression*)$1->type,(Expression*)$7->type);DS.checkIfBool((Expression*)$4->type);delete ((Expression*)$7);delete ((Expression*)$4);}
+                    | LPAREN Type RPAREN Exp    								{DS.compareTypesAssignment($2->type,$4->type);$$=new Expression($2->type);delete ((Type*)$2);delete ((Expression*)$4);}//if cast to byte make sure it's not bigger than 256
+                    | Exp IF LPAREN Exp RPAREN ELSE Exp                         {$$=$1;DS.compareTypesAssignment((((Expression*)$1)->type),(((Expression*)$7)->type));DS.checkIfBool((((Expression*)$4)->type));delete ((Expression*)$7);delete ((Expression*)$4);}
 
 ;
 

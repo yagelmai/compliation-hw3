@@ -43,9 +43,9 @@ public:
     ExpressionList():Node(TYPE_UNDEFINED){};
     void addExpression(Expression* exp){
         exp_list.emplace_back(exp);
-        std::list<Expression*>::iterator ite;
-        for (ite = exp_list.begin(); ite != exp_list.end(); ++ite) {
-            if((*ite)->getValue() == exp->value){
+        for(Expression* curr_exp : exp_list)
+        {
+            if(curr_exp->value == exp->value){
                 //error formal already in function
             }
         }

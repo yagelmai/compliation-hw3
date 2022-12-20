@@ -98,7 +98,7 @@ class GlobalSymbs
         void compareTypesAssignment(Types assigned_to, Types assigned_from);
         void checkFunctionType(Types type);
         void checkIfBool(Types type);
-        Types getVarType(Types type);
+        Types getVarType(string id);
         Types getFunctionType(string id);
 };
 
