@@ -7,7 +7,7 @@
 #include <stack>
 #include "hw3_output.hpp"
 #include "parser.hpp"
-
+using namespace std;
 class Symbol
 {
     public:
