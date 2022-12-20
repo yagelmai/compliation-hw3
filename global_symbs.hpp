@@ -37,13 +37,23 @@ public:
     };
     void printAllSymbs(){
         while(!symbols.empty()){
-            output::printID(symbols.back().name,symbols.back().offset, "change this to type from symbol");
+            output::printID(symbols.back().name,symbols.back().offset, typeToString(symbols.back().type));
             symbols.pop_back();
         }
     }
     vector<Symbol> &getEntries()
     {
         return this->symbols;
+    }
+    string typeToString(Types type)
+    {
+        switch(type){
+            case TYPE_BOOL: return "bool";
+            case TYPE_BYTE: return "byte";
+            case TYPE_INT: return "int";
+            case TYPE_STRING: return "string";
+            default: return "error";
+        }
     }
 };
 
