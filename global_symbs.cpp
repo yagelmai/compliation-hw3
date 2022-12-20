@@ -38,7 +38,7 @@ void GlobalSymbs::addSymbol(Types type,string name)
 {
     if (isExist(name))
     {
-        errorDef(yylineno, name);
+        output::errorDef(yylineno, name);
     }
     this->symbolTables.back().getEntries().emplace_back(Symbol(name, type, false,this->getOffset()));//needs fix
     this->offset.top()++;
@@ -49,8 +49,29 @@ bool GlobalSymbs::checkInWhile()
     return in_while>0;
 }
 
-Types GlobalSymbs::getFunctionType(string id){
+Types GlobalSymbs::getVarType(string id){
+    for (InnerSymbs iner_symb : symbolTables)
+    {
+        for (Symbol symb : iner_symb.getEntries())
+        {
+            if (symb.getName().compare(id) == 0)
+            {
+                return symb.type;
+            }
+        }
+    }
+    return TYPE_UNDEFINED;
+}
 
+Types GlobalSymbs::getFunctionType(string id){
+    for(Function fun: this->all_functions)
+    {
+        if(fun.name==id)
+        {
+            return fun.return_type;
+        }
+    }
+    return TYPE_UNDEFINED;
 }
 
 void GlobalSymbs::addFunction(string name, Types type)
@@ -76,7 +97,7 @@ void GlobalSymbs::openScope()
 {
     //add InnerSymbol entry to symbolTables
     //add int to offset stack(value should be equal to last value)
-    InnerSymbs new_is();
+    InnerSymbs new_is;
     symbolTables.emplace_back(new_is);
     offset.emplace(offset.top());
 }
@@ -113,7 +134,7 @@ void GlobalSymbs::comparesTypesCast(Types first,Types second)
     if(first==second) return;
     if(second==TYPE_BYTE && first==TYPE_INT) return;
     if(second==TYPE_INT && first==TYPE_BYTE) return;
-    errorMismatch(yylineno);
+    output::errorMismatch(yylineno);
     exit(0);
 }
 int GlobalSymbs::getOffset()

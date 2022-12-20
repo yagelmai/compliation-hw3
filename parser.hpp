@@ -25,7 +25,9 @@ public:
 
     Node(Types type):type(type){};
 };
-
+string getValue(){
+    return value;
+}
 #define YYSTYPE Node*
 
 class Expression: public Node

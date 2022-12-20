@@ -13,11 +13,11 @@ class Symbol
     public:
     string name;
     Types type;
-    int offset;
     bool is_func;
-    Symbol(string name, Types type, bool is_func,int offset):type(type),name(name),is_func(is_func),offset(offset)
+    int offset;
+    Symbol(string name, Types type, bool is_func,int offset):name(name),type(type),is_func(is_func),offset(offset)
     {
-    }
+    };
 
     string getName() { return this->name; }
     Types getTypes() { return this->type; }
@@ -98,6 +98,7 @@ class GlobalSymbs
         void compareTypesAssignment(Types assigned_to, Types assigned_from);
         void checkFunctionType(Types type);
         void checkIfBool(Types type);
+        Types getVarType(Types type);
         Types getFunctionType(string id);
 };
 

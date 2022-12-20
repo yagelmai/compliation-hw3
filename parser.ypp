@@ -6,7 +6,6 @@
     #include "global_symbs.hpp"         // all actions and the DS
     #include "hw3_output.hpp"
     using namespace output;
-    #include "parser.hpp"
 	int yylex();
 	extern int yylineno;
 	void yyerror(const char*);
@@ -89,10 +88,10 @@ Statement:          LBRACE OpenScope Statements CloseScope RBRACE    								{;}
                     | ID ASSIGN Exp SC  										{DS.compareTypesAssignment(DS.getVarType($1),(Expression*)$3->type);}
                     | Call SC           										{delete (Expression*)$1;}
                     | RETURN SC         										{DS.checkFunctionType(TYPE_VOID);}
-                    | RETURN Exp SC     										{DS.checkFunctionType((Expression*)$2->type);}
-                    | IF LPAREN Exp RPAREN Statement                            {checkIfBool((Expression*)$3->type);delete (Expression*)$3;}
-                    | IF LPAREN Exp RPAREN Statement ELSE Statement             {checkIfBool((Expression*)$3->type);delete (Expression*)$3;}
-                    | WHILE LPAREN Exp RPAREN WhileM Statement                  {checkIfBool((Expression*)$3->type);delete (Expression*)$3;DS.exitWhile();}
+                    | RETURN Exp SC     										{DS.checkFunctionType((((Expression*)$2)->type));}
+                    | IF LPAREN Exp RPAREN Statement                            {DS.checkIfBool((((Expression*)$3)->type));delete ((Expression*)$3);}
+                    | IF LPAREN Exp RPAREN Statement ELSE Statement             {DS.checkIfBool((((Expression*)$3)->type));delete ((Expression*)$3);}
+                    | WHILE LPAREN Exp RPAREN WhileM Statement                  {DS.checkIfBool((((Expression*)$3)->type));delete ((Expression*)$3);DS.exitWhile();}
                     | BREAK SC          										{if(!(DS.checkInWhile())) {errorUnexpectedBreak(yylineno);}}
                     | CONTINUE SC       										{if(!(DS.checkInWhile())) {errorUnexpectedContinue(yylineno);}}
 ;
@@ -100,12 +99,12 @@ Statement:          LBRACE OpenScope Statements CloseScope RBRACE    								{;}
 WhileM:             /*epsilon*/                                                 {DS.enterWhile();}
 ;
 
-Call:               ID LPAREN ExpList RPAREN    								{DS.checkVariables($1,$3);(Expression*)$$=new Expression(DS.getFunctionType($1->value));delete (ExpressionList*)$3}//check if variables fit called function
-                    | ID LPAREN RPAREN          								{DS.checkVariables($1,nullptr);(Expression*)$$=new Expression(DS.getFunctionType($1->value));}//check if function doesn't have variables
+Call:               ID LPAREN ExpList RPAREN    								{DS.checkVariables($1,$3);$$=new Expression(DS.getFunctionType(($1->value)));delete ((ExpressionList*)$3);}//check if variables fit called function
+                    | ID LPAREN RPAREN          								{DS.checkVariables($1,nullptr);$$=new Expression(DS.getFunctionType(($1->value)));}//check if function doesn't have variables
 ;
 
-ExpList:            Exp                         								{$$=new ExpressionList();((ExpressionList*)$$)->addExpression($1);}
-                    | Exp COMMA ExpList         								{(ExpressionList*)$3->addExpression($1);}
+ExpList:            Exp                         								{$$=new ExpressionList();((ExpressionList*)$$)->addExpression((Expression*)$1);}
+                    | Exp COMMA ExpList         								{((ExpressionList*)$3)->addExpression((Expression*)$1);}
 ;
 
 Type:               INT                         								{$$ = new Type(TYPE_INT);}
@@ -127,8 +126,8 @@ Exp:                LPAREN Exp RPAREN           								{$$=$2;}
                     | Exp AND Exp               								{$$=$1;delete (Expression*)$3;}
                     | Exp OR Exp                								{$$=$1;delete (Expression*)$3;}
                     | Exp RELATIONAL Exp             							{$$=$1;delete (Expression*)$3;}
-                    | LPAREN Type RPAREN Exp    								{DS.compareTypesAssignment($2->type,$4->type);(Expression*)$$=new Expression($2->type);delete (Type*)$2;delete (Expression*)$4;}//if cast to byte make sure it's not bigger than 256
-                    | Exp IF LPAREN Exp RPAREN ELSE Exp                         {$$=$1;DS.compateTypesAssignment((Expression*)$1->type,(Expression*)$7->type);DS.checkIfBool((Expression*)$4->type);delete (Expression*)$7;delete (Expression*)$4;}
+                    | LPAREN Type RPAREN Exp    								{DS.compareTypesAssignment($2->type,$4->type);$$=new Expression($2->type);delete (Type*)$2;delete (Expression*)$4;}//if cast to byte make sure it's not bigger than 256
+                    | Exp IF LPAREN Exp RPAREN ELSE Exp                         {$$=$1;DS.compareTypesAssignment((Expression*)$1->type,(Expression*)$7->type);DS.checkIfBool((Expression*)$4->type);delete ((Expression*)$7);delete ((Expression*)$4);}
 
 ;
 

@@ -9,7 +9,6 @@ void printundef();
 using namespace output;
 #include <iostream>
 #include <stdlib.h>
-#define YYSTYPE Node*
 %}
 
 %option yylineno
