@@ -39,9 +39,11 @@ void GlobalSymbs::addSymbol(Types type,std::string name)
     if (isExist(name))
     {
         output::errorDef(yylineno, name);
+        exit(0);
     }
     this->symbolTables.back().getEntries().emplace_back(Symbol(name, type, false,this->getOffset()));//needs fix
     this->offset.top()++;
+    std::cout<<"symbol " << name << "added"<< std::endl;
 }
 
 bool GlobalSymbs::checkInWhile()

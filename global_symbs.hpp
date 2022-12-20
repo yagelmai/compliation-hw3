@@ -41,6 +41,9 @@ public:
             symbols.pop_back();
         }
     }
+    void addSymbol(Symbol sym){
+        symbols.emplace_back(sym);
+    }
     vector<Symbol> &getEntries()
     {
         return this->symbols;
@@ -48,11 +51,11 @@ public:
     std::string typeToString(Types type)
     {
         switch(type){
-            case TYPE_BOOL: return "bool";
-            case TYPE_BYTE: return "byte";
-            case TYPE_INT: return "int";
-            case TYPE_STRING: return "string";
-            default: return "error";
+            case TYPE_BOOL: return "BOOL";
+            case TYPE_BYTE: return "BYTE";
+            case TYPE_INT: return "INT";
+            case TYPE_STRING: return "STRING";
+            default: return "ERROR";
         }
     }
 };

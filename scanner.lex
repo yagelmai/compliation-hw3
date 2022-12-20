@@ -25,7 +25,7 @@ r_binop [(\+|\-)]
 %%
 
 void                        return VOID;
-int                         {yylval = new Number(TYPE_INT,stoi(yytext)); return INT;}
+int                         {yylval = new Number(TYPE_INT,std::stoi(yytext)); return INT;}
 byte                        return BYTE;
 b                           return B;
 bool                        return BOOL;
