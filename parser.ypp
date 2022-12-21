@@ -50,9 +50,12 @@
 %%
 
 
-Prog:               OpenScope Funcs CloseScope              			        {DS.printFunctions();}//check if main function exists, print scope
+Prog:               OpenScope AddPrints Funcs CloseScope              			        {DS.printFunctions();}//check if main function exists, print scope
 ;
 
+AddPrints:          /* epsilon */                                               {    DS.addFormal(TYPE_STRING,"value");DS.addFunction("print",TYPE_VOID);DS.clearFormals();
+                                                                                     DS.addFormal(TYPE_INT,"value");DS.addFunction("printi",TYPE_VOID);DS.clearFormals();}
+;
 Funcs:              FuncDecl Funcs    										    {}
                     | /* epsilon */       										{}
 ;
