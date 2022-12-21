@@ -85,6 +85,7 @@ class GlobalSymbs
         int in_while;
         std::list<Symbol> current_function_parameters;
         Types current_function_type;
+        int current_function_offset;
         GlobalSymbs();
         ~GlobalSymbs() = default;
         bool isExist(std::string id);

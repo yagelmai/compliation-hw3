@@ -6,6 +6,7 @@ GlobalSymbs::GlobalSymbs()
     offset = stack<int>();
     offset.push(0);
     in_while = 0;
+    current_function_offset=-1;
     std::cout<<"GlobalSymbs()"<< std::endl;
 }
 
@@ -127,7 +128,7 @@ void GlobalSymbs::addFormal(Types type, std::string name)
 {
     std::cout<<"addFormal()"<< std::endl;
     //add Formal to current_function_parameters
-    Symbol new_s(name, type, false,this->symbolTables.back().getEntries().back().getOffset()-1);
+    Symbol new_s(name, type, false,current_function_offset--);
     this->symbolTables.back().getEntries().emplace_back(new_s);
     current_function_parameters.emplace_back(new_s);
 
@@ -141,6 +142,7 @@ void GlobalSymbs::clearFormals()
     {
         this->symbolTables.back().getEntries().pop_back();
     }
+    current_function_offset=-1;
 }
 void GlobalSymbs::currentFunctionType(Types type)
 {
