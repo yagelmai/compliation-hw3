@@ -88,6 +88,7 @@ void GlobalSymbs::addFunction(std::string name, Types type)
     //std::cout<<"addFunction()"<< std::endl;
     //create new Function with current_function_parameters
     //add to all_functions
+    std::cout<<"addFunction()"<< type<< std::endl;
     Function new_f(name, type);
     while(!current_function_parameters.empty())
     {
