@@ -125,11 +125,11 @@ void GlobalSymbs::addFormal(Types type, std::string name)
 void GlobalSymbs::clearFormals()
 {
     //empty current_function_parameters
-    current_function_parameters.clear();
-    while(!this->symbolTables.back().getEntries().empty() && this->symbolTables.back().getEntries().back().getOffset()<0)
+    /*current_function_parameters.clear();
+    while(this->symbolTables.back().getEntries().empty() && this->symbolTables.back().getEntries().back().getOffset()<0)
     {
         this->symbolTables.back().getEntries().pop_back();
-    }
+    }*/
 }
 void GlobalSymbs::currentFunctionType(Types type)
 {
@@ -151,14 +151,14 @@ int GlobalSymbs::getOffset()
 }
 void GlobalSymbs::printFunctions()
 {
-    for(Function fun: this->all_functions)
+    /*for(Function fun: this->all_functions)
     {
         vector<std::string> argtypes;
         for(Symbol sym: fun.symbols){
             argtypes.emplace_back(this->typeToString(sym.type));
         }
         output::printID(fun.name,0,output::makeFunctionType(this->typeToString(fun.return_type),argtypes));
-    }
+    }*/
 }
 string GlobalSymbs::typeToString(Types type){
     switch(type){
