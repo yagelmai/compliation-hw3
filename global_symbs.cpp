@@ -6,10 +6,12 @@ GlobalSymbs::GlobalSymbs()
     offset = stack<int>();
     offset.push(0);
     in_while = 0;
+    std::cout<<"GlobalSymbs()"<< std::endl;
 }
 
 bool GlobalSymbs::isExist(std::string id)
 {
+    std::cout<<"isExist()"<< std::endl;
     for (InnerSymbs iner_symb : symbolTables)
     {
         for (Symbol symb : iner_symb.getEntries())
@@ -36,6 +38,7 @@ void GlobalSymbs::checkIfBool(Types type)
 }
 void GlobalSymbs::addSymbol(Types type,std::string name)
 {
+    std::cout<<"addSymbol()"<< std::endl;
     if (isExist(name))
     {
         output::errorDef(yylineno, name);
@@ -48,10 +51,12 @@ void GlobalSymbs::addSymbol(Types type,std::string name)
 
 bool GlobalSymbs::checkInWhile()
 {
+    std::cout<<"checkInWhile()"<< std::endl;
     return in_while>0;
 }
 
 Types GlobalSymbs::getVarType(std::string id){
+    std::cout<<"getVarType()"<< std::endl;
     for (InnerSymbs iner_symb : symbolTables)
     {
         for (Symbol symb : iner_symb.getEntries())
@@ -66,6 +71,7 @@ Types GlobalSymbs::getVarType(std::string id){
 }
 
 Types GlobalSymbs::getFunctionType(std::string id){
+    std::cout<<"getFunctionType()"<< std::endl;
     for(Function fun: this->all_functions)
     {
         if(fun.name==id)
@@ -78,6 +84,7 @@ Types GlobalSymbs::getFunctionType(std::string id){
 
 void GlobalSymbs::addFunction(std::string name, Types type)
 {
+    std::cout<<"addFunction()"<< std::endl;
     //create new Function with current_function_parameters
     //add to all_functions
     Function new_f(name, type);
@@ -97,6 +104,7 @@ void GlobalSymbs::exitWhile()
 }
 void GlobalSymbs::openScope()
 {
+    std::cout<<"openScope()"<< std::endl;
     //add InnerSymbol entry to symbolTables
     //add int to offset stack(value should be equal to last value)
     InnerSymbs new_is;
@@ -108,6 +116,7 @@ void GlobalSymbs::compareTypesAssignment(Types assigned_to, Types assigned_from)
 }
 void GlobalSymbs::closeScope()
 {
+    std::cout<<"closeScope()"<< std::endl;
     //remove last InnerSymbol entry
     //remove last in from offset stack
     symbolTables.back().printAllSymbs();
@@ -116,6 +125,7 @@ void GlobalSymbs::closeScope()
 }
 void GlobalSymbs::addFormal(Types type, std::string name)
 {
+    std::cout<<"addFormal()"<< std::endl;
     //add Formal to current_function_parameters
     Symbol new_s(name, type, false,this->symbolTables.back().getEntries().back().getOffset()-1);
     this->symbolTables.back().getEntries().emplace_back(new_s);
@@ -125,11 +135,12 @@ void GlobalSymbs::addFormal(Types type, std::string name)
 void GlobalSymbs::clearFormals()
 {
     //empty current_function_parameters
-    /*current_function_parameters.clear();
+    std::cout<<"clearFormals()"<< std::endl;
+    current_function_parameters.clear();
     while(this->symbolTables.back().getEntries().empty() && this->symbolTables.back().getEntries().back().getOffset()<0)
     {
         this->symbolTables.back().getEntries().pop_back();
-    }*/
+    }
 }
 void GlobalSymbs::currentFunctionType(Types type)
 {
@@ -138,6 +149,7 @@ void GlobalSymbs::currentFunctionType(Types type)
 
 void GlobalSymbs::comparesTypesCast(Types first,Types second)
 {
+    std::cout<<"compareTypesCast()"<< std::endl;
     //check if second type can be cast into first type
     if(first==second) return;
     if(second==TYPE_BYTE && first==TYPE_INT) return;
@@ -151,16 +163,18 @@ int GlobalSymbs::getOffset()
 }
 void GlobalSymbs::printFunctions()
 {
-    /*for(Function fun: this->all_functions)
+    std::cout<<"printFunctions()"<< std::endl;
+    for(Function fun: this->all_functions)
     {
         vector<std::string> argtypes;
         for(Symbol sym: fun.symbols){
             argtypes.emplace_back(this->typeToString(sym.type));
         }
         output::printID(fun.name,0,output::makeFunctionType(this->typeToString(fun.return_type),argtypes));
-    }*/
+    }
 }
 string GlobalSymbs::typeToString(Types type){
+    std::cout<<"typeToString()"<< std::endl;
     switch(type){
             case TYPE_BOOL: return "BOOL";
             case TYPE_BYTE: return "BYTE";

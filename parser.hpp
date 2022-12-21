@@ -6,7 +6,7 @@
 extern int yylineno;
 using namespace std;
 #define YYSTYPE Node*
-
+#include <iostream>
 enum Types
 {
     TYPE_UNDEFINED,
@@ -42,8 +42,11 @@ class ExpressionList: public Node
 {
 public:
     std::list<Expression*> exp_list;
-    ExpressionList():Node(TYPE_UNDEFINED){};
+    ExpressionList():Node(TYPE_UNDEFINED){
+        std::cout<<"ExpressionList()"<< std::endl;
+    };
     void addExpression(Expression* exp){
+        std::cout<<"addExpression()"<< std::endl;
         exp_list.emplace_back(exp);
         for(Expression* curr_exp : exp_list)
         {
@@ -59,6 +62,7 @@ class Number : public Node
     public:
     int num;
     Number(Types type, string num_s):Node(type) {
+        std::cout<<"Number()"<< std::endl;
         num=std::stoi(num_s);
     };
 };
