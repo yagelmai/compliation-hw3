@@ -7,6 +7,12 @@ GlobalSymbs::GlobalSymbs()
     offset.push(0);
     in_while = 0;
     current_function_offset=-1;
+    this->addFormal(TYPE_STRING,"value");
+    this->addFunction("print",TYPE_VOID);
+    this->clearFormals();
+    this->addFormal(TYPE_INT,"value");
+    this->addFunction("printi",TYPE_VOID);
+    this->clearFormals();
    // std::cout<<"GlobalSymbs()"<< std::endl;
 }
 
@@ -45,7 +51,7 @@ void GlobalSymbs::addSymbol(Types type,std::string name)
         output::errorDef(yylineno, name);
         exit(0);
     }
-    this->symbolTables.back().getEntries().emplace_back(Symbol(name, type, false,this->getOffset()));//needs fix
+    this->symbolTables.back().getEntries().push_back(Symbol(name, type, false,this->getOffset()));//needs fix
     this->offset.top()++;
     //std::cout<<"symbol " << name << "added"<< std::endl;
 }
@@ -128,7 +134,8 @@ void GlobalSymbs::addFormal(Types type, std::string name)
 {
     //std::cout<<"addFormal()"<< std::endl;
     //add Formal to current_function_parameters
-    Symbol new_s(name, type, false,current_function_offset--);
+    Symbol new_s(name, type, false,current_function_offset--)
+    this->symbolTables.back().getEntries().push_front(new_s);
     current_function_parameters.emplace_back(new_s);
 }
 void GlobalSymbs::clearFormals()

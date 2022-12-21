@@ -30,12 +30,12 @@ class Symbol
 
 class InnerSymbs
 {
-    vector<Symbol> symbols;
+    list<Symbol> symbols;
 
 public:
     InnerSymbs()
     {
-        symbols = vector<Symbol>();
+        symbols = list<Symbol>();
     };
     void printAllSymbs(){
         while(!symbols.empty()){
@@ -44,9 +44,9 @@ public:
         }
     }
     void addSymbol(Symbol sym){
-        symbols.emplace_back(sym);
+        symbols.push_back(sym);
     }
-    vector<Symbol> &getEntries()
+    list<Symbol> &getEntries()
     {
         return this->symbols;
     }
