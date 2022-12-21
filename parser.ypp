@@ -53,8 +53,11 @@
 Prog:               OpenScope AddPrints Funcs CloseScope              			        {DS.printFunctions();}//check if main function exists, print scope
 ;
 
-AddPrints:          /* epsilon */                                               {    DS.addFormal(TYPE_STRING,"value");DS.addFunction("print",TYPE_VOID);DS.clearFormals();
-                                                                                     DS.addFormal(TYPE_INT,"value");DS.addFunction("printi",TYPE_VOID);DS.clearFormals();}
+AddPrints:          /* epsilon */                                               {    Symbol new_s("value", TYPE_STRING, false,-1);
+                                                                                     Symbol new_s2("value", TYPE_INT, false,-1);
+                                                                                     DS.symbolTables.back().getEntries().push_front(new_s);
+                                                                                     DS.current_function_parameters.emplace_back(new_s);DS.addFunction("print",TYPE_VOID);DS.clearFormals();
+                                                                                     DS.symbolTables.back().getEntries().push_front(new_s2);DS.addFunction("printi",TYPE_VOID);DS.clearFormals();}
 ;
 Funcs:              FuncDecl Funcs    										    {}
                     | /* epsilon */       										{}

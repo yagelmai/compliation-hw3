@@ -85,12 +85,13 @@ Types GlobalSymbs::getFunctionType(std::string id){
 
 void GlobalSymbs::addFunction(std::string name, Types type)
 {
-    //std::cout<<"addFunction()"<< std::endl;
+    std::cout<<"addFunction()"<< std::endl;
     //create new Function with current_function_parameters
     //add to all_functions
     Function new_f(name, type);
     while(!current_function_parameters.empty())
     {
+        std::cout<<current_function_parameters.front().getName()<< std::endl;
         new_f.add_symbol(current_function_parameters.front());
         current_function_parameters.pop_front();
     }
@@ -160,11 +161,14 @@ int GlobalSymbs::getOffset()
 }
 void GlobalSymbs::printFunctions()
 {
-    //std::cout<<"printFunctions()"<< std::endl;
+    
+    std::cout<<"printFunctions()"<< std::endl;
     for(Function fun: this->all_functions)
     {
+        std::cout<<"printFunctions()2"<< std::endl;
         vector<std::string> argtypes;
         for(Symbol sym: fun.symbols){
+            std::cout<<"printFunctions()3"<< std::endl;
             argtypes.emplace_back(this->typeToString(sym.type));
         }
         output::printID(fun.name,0,output::makeFunctionType(this->typeToString(fun.return_type),argtypes));
