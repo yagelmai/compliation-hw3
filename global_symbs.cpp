@@ -95,6 +95,7 @@ void GlobalSymbs::addFunction(std::string name, Types type)
         new_f.add_symbol(current_function_parameters.front());
         current_function_parameters.pop_front();
     }
+    all_functions.emplace_back(new_f);
 }
 void GlobalSymbs::enterWhile()
 {
