@@ -184,7 +184,7 @@ string GlobalSymbs::typeToString(Types type){
             case TYPE_BYTE: return "BYTE"; break;
             case TYPE_INT: return "INT"; break;
             case TYPE_STRING: return "STRING"; break;
-            case TYPE_VOID: reutrn "VOID";break;
+            case TYPE_VOID: return "VOID";break;
             default: return "ERROR";
         }
 }
