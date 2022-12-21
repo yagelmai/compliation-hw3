@@ -85,7 +85,7 @@ Types GlobalSymbs::getFunctionType(std::string id){
 
 void GlobalSymbs::addFunction(std::string name, Types type)
 {
-    std::cout<<"addFunction()"<< std::endl;
+    //std::cout<<"addFunction()"<< std::endl;
     //create new Function with current_function_parameters
     //add to all_functions
     Function new_f(name, type);
@@ -163,13 +163,13 @@ int GlobalSymbs::getOffset()
 void GlobalSymbs::printFunctions()
 {
     
-    std::cout<<"printFunctions()"<< std::endl;
+    //std::cout<<"printFunctions()"<< std::endl;
     for(Function fun: this->all_functions)
     {
-        std::cout<<"printFunctions()2"<< std::endl;
+        //std::cout<<"printFunctions()2"<< std::endl;
         vector<std::string> argtypes;
         for(Symbol sym: fun.symbols){
-            std::cout<<"printFunctions()3"<< std::endl;
+            //std::cout<<"printFunctions()3"<< std::endl;
             argtypes.emplace_back(this->typeToString(sym.type));
         }
         output::printID(fun.name,0,output::makeFunctionType(this->typeToString(fun.return_type),argtypes));
@@ -177,11 +177,12 @@ void GlobalSymbs::printFunctions()
 }
 string GlobalSymbs::typeToString(Types type){
     //std::cout<<"typeToString()"<< std::endl;
+    std::cout<<"typeToString()"<< type << std::endl;
     switch(type){
-            case TYPE_BOOL: return "BOOL";
-            case TYPE_BYTE: return "BYTE";
-            case TYPE_INT: return "INT";
-            case TYPE_STRING: return "STRING";
+            case TYPE_BOOL: return "BOOL"; break;
+            case TYPE_BYTE: return "BYTE"; break;
+            case TYPE_INT: return "INT"; break;
+            case TYPE_STRING: return "STRING"; break;
             default: return "ERROR";
         }
 }
