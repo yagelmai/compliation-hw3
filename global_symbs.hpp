@@ -39,8 +39,8 @@ public:
     };
     void printAllSymbs(){
         while(!symbols.empty()){
-            output::printID(symbols.back().name,symbols.back().offset, typeToString(symbols.back().type));
-            symbols.pop_back();
+            output::printID(symbols.front().name,symbols.front().offset, typeToString(symbols.front().type));
+            symbols.pop_front();
         }
     }
     void addSymbol(Symbol sym){
