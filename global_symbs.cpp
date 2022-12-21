@@ -88,13 +88,13 @@ void GlobalSymbs::addFunction(std::string name, Types type)
     //std::cout<<"addFunction()"<< std::endl;
     //create new Function with current_function_parameters
     //add to all_functions
-    std::cout<<"addFunction()"<< type<< std::endl;
+    //std::cout<<"addFunction()"<< type<< std::endl;
     Function new_f(name, type);
     while(!current_function_parameters.empty())
     {
-        std::cout<<current_function_parameters.front().getName()<< std::endl;
-        new_f.add_symbol(current_function_parameters.front());
-        current_function_parameters.pop_front();
+        //std::cout<<current_function_parameters.back().getName()<< std::endl;
+        new_f.add_symbol(current_function_parameters.back());
+        current_function_parameters.pop_back();
     }
     all_functions.emplace_back(new_f);
 }
@@ -178,12 +178,13 @@ void GlobalSymbs::printFunctions()
 }
 string GlobalSymbs::typeToString(Types type){
     //std::cout<<"typeToString()"<< std::endl;
-    std::cout<<"typeToString()"<< type << std::endl;
+    //std::cout<<"typeToString()"<< type << std::endl;
     switch(type){
             case TYPE_BOOL: return "BOOL"; break;
             case TYPE_BYTE: return "BYTE"; break;
             case TYPE_INT: return "INT"; break;
             case TYPE_STRING: return "STRING"; break;
+            case TYPE_VOID: reutrn "VOID";break;
             default: return "ERROR";
         }
 }

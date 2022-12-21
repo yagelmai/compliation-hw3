@@ -6,6 +6,7 @@
 
     #include "global_symbs.hpp"         // all actions and the DS
     #include "hw3_output.hpp"
+
     using namespace output;
 	int yylex();
 	extern int yylineno;
@@ -55,7 +56,7 @@ Prog:               OpenScope AddPrints Funcs CloseScope              			       
 
 AddPrints:          /* epsilon */                                               {    Symbol new_s("value", TYPE_STRING, false,-1);
                                                                                      Symbol new_s2("value", TYPE_INT, false,-1);
-                                                                                     DS.current_function_parameters.emplace_back(new_s);DS.addFunction("print",TYPE_VOID);DS.clearFormals();
+                                                                                     DS.current_function_parameters.emplace_back(new_s);DS.addFunction("print", TYPE_VOID);DS.clearFormals();
                                                                                      DS.current_function_parameters.emplace_back(new_s2);DS.addFunction("printi",TYPE_VOID);DS.clearFormals();}
 ;
 Funcs:              FuncDecl Funcs    										    {}
