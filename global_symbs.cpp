@@ -7,12 +7,12 @@ GlobalSymbs::GlobalSymbs()
     offset.push(0);
     in_while = 0;
     current_function_offset=-1;
-    std::cout<<"GlobalSymbs()"<< std::endl;
+   // std::cout<<"GlobalSymbs()"<< std::endl;
 }
 
 bool GlobalSymbs::isExist(std::string id)
 {
-    std::cout<<"isExist()"<< std::endl;
+    //std::cout<<"isExist()"<< std::endl;
     for (InnerSymbs iner_symb : symbolTables)
     {
         for (Symbol symb : iner_symb.getEntries())
@@ -39,7 +39,7 @@ void GlobalSymbs::checkIfBool(Types type)
 }
 void GlobalSymbs::addSymbol(Types type,std::string name)
 {
-    std::cout<<"addSymbol()"<< std::endl;
+    //std::cout<<"addSymbol()"<< std::endl;
     if (isExist(name))
     {
         output::errorDef(yylineno, name);
@@ -47,17 +47,17 @@ void GlobalSymbs::addSymbol(Types type,std::string name)
     }
     this->symbolTables.back().getEntries().emplace_back(Symbol(name, type, false,this->getOffset()));//needs fix
     this->offset.top()++;
-    std::cout<<"symbol " << name << "added"<< std::endl;
+    //std::cout<<"symbol " << name << "added"<< std::endl;
 }
 
 bool GlobalSymbs::checkInWhile()
 {
-    std::cout<<"checkInWhile()"<< std::endl;
+    //std::cout<<"checkInWhile()"<< std::endl;
     return in_while>0;
 }
 
 Types GlobalSymbs::getVarType(std::string id){
-    std::cout<<"getVarType()"<< std::endl;
+    //std::cout<<"getVarType()"<< std::endl;
     for (InnerSymbs iner_symb : symbolTables)
     {
         for (Symbol symb : iner_symb.getEntries())
@@ -72,7 +72,7 @@ Types GlobalSymbs::getVarType(std::string id){
 }
 
 Types GlobalSymbs::getFunctionType(std::string id){
-    std::cout<<"getFunctionType()"<< std::endl;
+    //std::cout<<"getFunctionType()"<< std::endl;
     for(Function fun: this->all_functions)
     {
         if(fun.name==id)
@@ -85,7 +85,7 @@ Types GlobalSymbs::getFunctionType(std::string id){
 
 void GlobalSymbs::addFunction(std::string name, Types type)
 {
-    std::cout<<"addFunction()"<< std::endl;
+    //std::cout<<"addFunction()"<< std::endl;
     //create new Function with current_function_parameters
     //add to all_functions
     Function new_f(name, type);
@@ -105,7 +105,7 @@ void GlobalSymbs::exitWhile()
 }
 void GlobalSymbs::openScope()
 {
-    std::cout<<"openScope()"<< std::endl;
+    //std::cout<<"openScope()"<< std::endl;
     //add InnerSymbol entry to symbolTables
     //add int to offset stack(value should be equal to last value)
     InnerSymbs new_is;
@@ -117,7 +117,7 @@ void GlobalSymbs::compareTypesAssignment(Types assigned_to, Types assigned_from)
 }
 void GlobalSymbs::closeScope()
 {
-    std::cout<<"closeScope()"<< std::endl;
+    //std::cout<<"closeScope()"<< std::endl;
     //remove last InnerSymbol entry
     //remove last in from offset stack
     symbolTables.back().printAllSymbs();
@@ -126,7 +126,7 @@ void GlobalSymbs::closeScope()
 }
 void GlobalSymbs::addFormal(Types type, std::string name)
 {
-    std::cout<<"addFormal()"<< std::endl;
+    //std::cout<<"addFormal()"<< std::endl;
     //add Formal to current_function_parameters
     Symbol new_s(name, type, false,current_function_offset--);
     current_function_parameters.emplace_back(new_s);
@@ -134,7 +134,7 @@ void GlobalSymbs::addFormal(Types type, std::string name)
 void GlobalSymbs::clearFormals()
 {
     //empty current_function_parameters
-    std::cout<<"clearFormals()"<< std::endl;
+    //std::cout<<"clearFormals()"<< std::endl;
     current_function_parameters.clear();
     current_function_offset=-1;
 }
@@ -145,7 +145,7 @@ void GlobalSymbs::currentFunctionType(Types type)
 
 void GlobalSymbs::comparesTypesCast(Types first,Types second)
 {
-    std::cout<<"compareTypesCast()"<< std::endl;
+    //std::cout<<"compareTypesCast()"<< std::endl;
     //check if second type can be cast into first type
     if(first==second) return;
     if(second==TYPE_BYTE && first==TYPE_INT) return;
@@ -159,7 +159,7 @@ int GlobalSymbs::getOffset()
 }
 void GlobalSymbs::printFunctions()
 {
-    std::cout<<"printFunctions()"<< std::endl;
+    //std::cout<<"printFunctions()"<< std::endl;
     for(Function fun: this->all_functions)
     {
         vector<std::string> argtypes;
@@ -170,7 +170,7 @@ void GlobalSymbs::printFunctions()
     }
 }
 string GlobalSymbs::typeToString(Types type){
-    std::cout<<"typeToString()"<< std::endl;
+    //std::cout<<"typeToString()"<< std::endl;
     switch(type){
             case TYPE_BOOL: return "BOOL";
             case TYPE_BYTE: return "BYTE";

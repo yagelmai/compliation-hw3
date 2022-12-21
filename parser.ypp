@@ -140,6 +140,12 @@ void yyerror(const char*)
 
 int main() 										
 {
+    DS.addFormal(TYPE_STRING,"value");
+    DS.addFunction("print",TYPE_VOID);
+    DS.clearFormals();
+    DS.addFormal(TYPE_INT,"value");
+    DS.addFunction("printi",TYPE_VOID);
+    DS.clearFormals();
     //add functions print and printi to DS
 	return yyparse();
 }
