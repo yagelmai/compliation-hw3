@@ -23,13 +23,30 @@ class Node
 public:
     std::string value;
     Types type;
-
+    Node(){};
+    Node(string token_value) : value()
+    {
+        value = token_value;
+        type = TYPE_UNDEFINED;
+    }
+    Node(string token_value, Types type) : value(), type()
+    {
+        this->value = token_value;
+        this->type = type;
+    }
     Node(Types type):type(type){};
     std::string getValue(){
         return value;
     }
 };
-
+class FormalDecl;
+class Formals;
+class FormalsList;
+class Id : public Node
+{
+public:
+    Id(string value) : Node(value) {}
+};
 
 class Expression: public Node
 {
@@ -71,6 +88,87 @@ class Type : public Node
 public:
 Type(Types v_type):Node(v_type){};
 };
+
+class FormalDecl : public Node
+{
+public:
+    FormalDecl(Type *type, Id *symbol);
+};
+
+class Formals : public Node
+{
+public:
+    vector<FormalDecl *> declaration;
+    Formals() = default;
+    Formals(FormalsList *f_list);
+};
+
+class FormalsList : public Formals
+{
+public:
+    FormalsList(FormalDecl *f_dec);
+    FormalsList(FormalDecl *f_dec, FormalsList *f_list);
+};
+
+
+
+class EntryT
+{
+    Types returnValue;
+    string name;
+    vector<Types> types;
+    bool isFunc;
+    int offset;
+    
+
+public:
+    EntryT();
+    explicit EntryT(string nm, Types t, int offset) // for single symbol
+    {
+        this->name = nm;
+        this->types = vector<Types>(1, t);
+        this->returnValue = TYPE_UNDEFINED;
+        this->offset = offset;
+        this->isFunc = false;
+    }
+
+    explicit EntryT(string &nm, vector<Types> &typs, Types rValue, int offset) // for function
+    {
+        this->name = nm;
+        this->types = typs;
+        this->returnValue = rValue;
+        this->offset = offset;
+        this->isFunc = true;
+    }
+
+    ~EntryT() = default;
+
+    string &getName() { return this->name; }
+    vector<Types> &getTypes() { return this->types; }
+    Types getReturnValue() { return this->returnValue; }
+    int getOffset() { return this->offset; }
+    bool getIsFunc() { return this->isFunc; }
+};
+
+
+class Table
+{
+    vector<EntryT *> symbols;
+
+public:
+    Table()
+    {
+        symbols = vector<EntryT *>();
+    }
+
+    ~Table() = default;
+
+    vector<EntryT *> &getEntries()
+    {
+        return this->symbols;
+    }
+};
+
 
 class Statement : public Node
 {

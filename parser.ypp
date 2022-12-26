@@ -73,12 +73,12 @@ RetType:            Type                										{DS.currentFunctionType($1->ty
                     | VOID             										    {DS.currentFunctionType(TYPE_VOID);}
 ;
 
-Formals:            FormalsList       										    {}//make sure to save all formals with negative offsets
-                    | /* epsilon */       										{}
+Formals:            FormalsList       										    {$$ = new Formals((FormalsList*)$1);}//make sure to save all formals with negative offsets
+                    | /* epsilon */       										{$$ = new Formals();}
 ;
 
-FormalsList:        FormalDecl          										{}//save variables at negative offsets.
-                    | FormalDecl COMMA FormalsList  							{}
+FormalsList:        FormalDecl          										{$$ = new FormalsList((FormalDecl*)$1);} //save variables at negative offsets.
+                    | FormalDecl COMMA FormalsList  							{$$ = new FormalsList((FormalDecl*)$1, (FormalsList*)$3);}
 ;
 
 FormalDecl:         Type ID         				 							{DS.addFormal((((Type*)$1)->type),($2->value));delete ((Type*)$1);}
