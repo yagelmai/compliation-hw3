@@ -89,6 +89,7 @@ class GlobalSymbs
         GlobalSymbs();
         ~GlobalSymbs() = default;
         bool isExist(std::string id);
+        Types findID(std::string id);
         void addSymbol(Types type, std::string name);
         void addFunction(std::string name,Types type);//implement
         void enterWhile();//implement
@@ -103,6 +104,7 @@ class GlobalSymbs
         void comparesTypesCast(Types first,Types second);
         int getOffset();//implement
         void compareTypesAssignment(Types assigned_to, Types assigned_from);
+        void compareRelop(Types assigned_to, Types assigned_from);
         void checkFunctionType(Types type);
         void checkIfBool(Types type);
         Types getVarType(std::string id);

@@ -46,4 +46,3 @@ Formals::Formals(FormalsList *f_list)
     this->declaration = f_list->declaration;
     this->type = TYPE_UNDEFINED;
 }
-

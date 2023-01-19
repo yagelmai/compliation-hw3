@@ -1,5 +1,7 @@
 ---end scope---
 c INT -1
+4
+4
 ---end scope---
 t1 INT 0
 t2 INT 1

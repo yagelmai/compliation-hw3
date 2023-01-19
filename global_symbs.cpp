@@ -1,4 +1,6 @@
 #include "global_symbs.hpp"
+#include "hw3_output.hpp"
+#include <iterator>
 
 GlobalSymbs::GlobalSymbs()
 {
@@ -25,8 +27,75 @@ bool GlobalSymbs::isExist(std::string id)
     }
     return false;
 }
+Types GlobalSymbs::findID(std::string id)
+{
+    //std::cout<<"isExist()"<< std::endl;
+    for (InnerSymbs iner_symb : symbolTables)
+    {
+        for (Symbol symb : iner_symb.getEntries())
+        {
+            if (symb.getName().compare(id) == 0)
+            {
+                return symb.type;
+            }
+        }
+    }
+    output::errorUndef(yylineno, id);
+    exit(0);
+    return TYPE_UNDEFINED;
+}
 void GlobalSymbs::checkVariables(std::string id, ExpressionList* El)
 {
+
+    vector<std::string> argtypes;
+    for(Function f : all_functions ){
+        if (f.name == id)
+        {   
+            if (El == nullptr && f.symbols.size() != 0)
+            {
+                for(Symbol sym: f.symbols){
+                //std::cout<<"printFunctions()3"<< std::endl;
+                argtypes.emplace_back(this->typeToString(sym.type));
+                }
+                output::errorPrototypeMismatch(yylineno, id, argtypes);
+                exit(0);
+            }
+            if (El == nullptr)
+            {
+                return;
+            }
+            // std::cout << El->exp_list.size() << std::endl;
+            // std::cout << f.symbols.size() << std::endl;
+            if (El->exp_list.size() != f.symbols.size())
+            {
+                for(Symbol sym: f.symbols){
+                    //std::cout<<"printFunctions()3"<< std::endl;
+                    argtypes.emplace_back(this->typeToString(sym.type));
+                }
+                output::errorPrototypeMismatch(yylineno, id, argtypes);
+                exit(0);
+            }
+            for(int i=0; i < El->exp_list.size(); i++){
+
+                if (El->exp_list[i]->type != f.symbols[i].type)
+                {
+                    if ((f.symbols[i].type == TYPE_INT && El->exp_list[i]->type == TYPE_BYTE))
+                    {
+                        continue;
+                    }
+                    for(Symbol sym: f.symbols){
+                        //std::cout<<"printFunctions()3"<< std::endl;
+                        // std::cout << this->typeToString(El->exp_list[i]->type) << std::endl;
+                        argtypes.emplace_back(this->typeToString(sym.type));
+                    }
+                    output::errorPrototypeMismatch(yylineno, id, argtypes);
+                    exit(0);
+                }
+            }
+        }
+    }
+    
+
     
 }
 void GlobalSymbs::checkFunctionType(Types type)
@@ -116,8 +185,23 @@ void GlobalSymbs::openScope()
     offset.emplace(offset.top());
 }
 void GlobalSymbs::compareTypesAssignment(Types assigned_to, Types assigned_from){
-
+    if (assigned_to == assigned_from || (assigned_to == TYPE_INT && assigned_from ==TYPE_BYTE))
+    {
+        return;
+    }  
+    output::errorMismatch(yylineno);
+    exit(0);
 }
+
+void GlobalSymbs::compareRelop(Types assigned_to, Types assigned_from){
+    if (assigned_to==TYPE_INT && assigned_from==TYPE_INT)
+    {
+        return;
+    }  
+    output::errorMismatch(yylineno);
+    exit(0);
+}
+
 void GlobalSymbs::closeScope()
 {
     //std::cout<<"closeScope()"<< std::endl;
@@ -132,7 +216,7 @@ void GlobalSymbs::addFormal(Types type, std::string name)
     //std::cout<<"addFormal()"<< std::endl;
     //add Formal to current_function_parameters
     Symbol new_s(name, type, false,current_function_offset--);
-    this->symbolTables.back().getEntries().push_front(new_s);
+    this->symbolTables.back().getEntries().push_back(new_s);
     current_function_parameters.emplace_back(new_s);
 }
 void GlobalSymbs::clearFormals()

@@ -58,16 +58,18 @@ public:
 class ExpressionList: public Node
 {
 public:
-    std::list<Expression*> exp_list;
+    std::vector<Expression*> exp_list;
     ExpressionList():Node(TYPE_UNDEFINED){
         //std::cout<<"ExpressionList()"<< std::endl;
     };
     void addExpression(Expression* exp){
-        //std::cout<<"addExpression()"<< std::endl;
+        // std::cout<<"addExpression()"<< std::endl;
         exp_list.emplace_back(exp);
+        // std::cout<<exp_list.size()<< std::endl;
         for(Expression* curr_exp : exp_list)
         {
             if(curr_exp->value == exp->value){
+
                 //error formal already in function
             }
         }
@@ -170,16 +172,4 @@ public:
 };
 
 
-class Statement : public Node
-{
-// Tyte ID;
-public:
-};
-/*Statement(Type *t, string id_val)
-{
-    Symbol *symbol = new Symbol();
-    symbol->type = ;
-    symbol->value = id_val;
-    //DS->addSymbol(symbol, id_val);
-};*/
 #endif //_PARSER_H

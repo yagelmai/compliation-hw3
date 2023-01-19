@@ -1652,7 +1652,7 @@ yyreduce:
 
   case 34:
 #line 113 "parser.ypp"
-    {((ExpressionList*)(yyvsp[(3) - (3)]))->addExpression((Expression*)(yyvsp[(1) - (3)]));;}
+    {((ExpressionList*)(yyvsp[(3) - (3)]))->addExpression((Expression*)(yyvsp[(1) - (3)])); (yyval) = (yyvsp[(3) - (3)]);}
     break;
 
   case 35:
@@ -1682,12 +1682,12 @@ yyreduce:
 
   case 40:
 #line 123 "parser.ypp"
-    {((yyvsp[(1) - (3)])->type>(yyvsp[(3) - (3)])->type)?((yyval)=(yyvsp[(1) - (3)])):((yyval)=(yyvsp[(3) - (3)]));;}
+    {((yyvsp[(1) - (3)])->type>(yyvsp[(3) - (3)])->type)?((yyval)=(yyvsp[(1) - (3)])):((yyval)=(yyvsp[(3) - (3)])); std::cout << (yyvsp[(1) - (3)])->type << std::endl << (yyvsp[(3) - (3)])->type << std::endl;;}
     break;
 
   case 41:
 #line 124 "parser.ypp"
-    {;;}
+    {(yyval) = new Expression(DS.findID(((Node*)(yyvsp[(1) - (1)]))->value));;}
     break;
 
   case 42:
